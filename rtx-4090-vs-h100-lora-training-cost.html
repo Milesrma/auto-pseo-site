@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="gvS5-NyCMnAS5OkAiHrTHTS2xRAIxcZDEUcyq8OG_dg" />
     <title>RTX 4090 vs NVIDIA H100: LoRA Fine-Tuning Speed & Cost</title>
     <meta name="description" content="While the H100 completes LoRA fine-tuning runs three times faster, the RTX 4090 is vastly more cost-effective for smaller open-source models. The H100's bottleneck is rarely compute for LoRA, making the 4090 the ROI winner.">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,15 +34,28 @@
             </div>
         </div>
 
-        <div class="p-6 bg-zinc-900/60 border border-zinc-800 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
-                <h3 class="font-bold text-white">Deploying NVIDIA RTX 4090 or NVIDIA H100 80GB locally?</h3>
-                <p class="text-sm text-zinc-400">Compare current retail hardware prices and stock availability.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-6 bg-zinc-900/60 border border-zinc-800 rounded-xl flex flex-col justify-between gap-4">
+                <div>
+                    <h3 class="font-bold text-white">Buy Local Hardware</h3>
+                    <p class="text-sm text-zinc-400 mt-1">Check retail prices and stock for NVIDIA RTX 4090 &amp; NVIDIA H100 80GB.</p>
+                </div>
+                <a href="https://www.amazon.com/s?k=NVIDIA+RTX+4090+OC+Edition&tag=milesrma-20" target="_blank" rel="nofollow sponsored"
+                   class="text-center bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-5 py-3 rounded-lg transition">
+                   Check Amazon Prices &rarr;
+                </a>
             </div>
-            <a href="https://www.amazon.com/s?k=NVIDIA+RTX+4090+OC+Edition&tag=milesrma-20" target="_blank" rel="nofollow sponsored"
-               class="whitespace-nowrap bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-6 py-3 rounded-lg transition">
-               Check Hardware Prices &rarr;
-            </a>
+
+            <div class="p-6 bg-zinc-900/60 border border-zinc-800 rounded-xl flex flex-col justify-between gap-4">
+                <div>
+                    <h3 class="font-bold text-white">Rent Cloud GPUs Instantly</h3>
+                    <p class="text-sm text-zinc-400 mt-1">Deploy NVIDIA H100 80GB in the cloud by the hour with zero upfront hardware cost.</p>
+                </div>
+                <a href="https://runpod.io?ref=b0ct1u79" target="_blank" rel="nofollow sponsored"
+                   class="text-center bg-zinc-100 hover:bg-white text-zinc-950 font-bold px-5 py-3 rounded-lg transition">
+                   Deploy on RunPod &rarr;
+                </a>
+            </div>
         </div>
     </div>
 
