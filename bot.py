@@ -201,6 +201,7 @@ def build_files(all_pages):
     sitemap_xml = f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>{base_url}/</loc></url>{sitemap_items}</urlset>'
     files_to_commit.append({"path": "sitemap.xml", "content": sitemap_xml})
     files_to_commit.append({"path": "database.json", "content": json.dumps(all_pages, indent=2)})
+    files_to_commit.append({"path": "database.json", "content": json.dumps(all_pages, indent=2)})
 
     return files_to_commit
 
