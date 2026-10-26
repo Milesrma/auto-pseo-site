@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTX 4090 vs NVIDIA H100: LoRA Fine-Tuning Speed & Cost</title>
+    <meta name="description" content="While the H100 completes LoRA fine-tuning runs three times faster, the RTX 4090 is vastly more cost-effective for smaller open-source models. The H100's bottleneck is rarely compute for LoRA, making the 4090 the ROI winner.">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen p-6 md:p-12">
+    <div class="max-w-3xl mx-auto">
+        <a href="index.html" class="text-xs uppercase tracking-widest text-emerald-400 hover:underline">&larr; All Calculators</a>
+        <h1 class="text-3xl md:text-4xl font-bold mt-4 mb-3">RTX 4090 vs NVIDIA H100: LoRA Fine-Tuning Speed & Cost</h1>
+        <p class="text-zinc-400 mb-8 leading-relaxed">While the H100 completes LoRA fine-tuning runs three times faster, the RTX 4090 is vastly more cost-effective for smaller open-source models. The H100's bottleneck is rarely compute for LoRA, making the 4090 the ROI winner.</p>
+
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 mb-8">
+            <label class="block text-sm font-medium text-zinc-300 mb-2">
+                Monthly Usage / Render Hours: <span id="hrsVal" class="text-emerald-400 font-bold">100</span> hrs
+            </label>
+            <input id="hrsSlider" type="range" min="10" max="1000" value="100" class="w-full accent-emerald-500 mb-6 cursor-pointer">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-5 bg-zinc-950 rounded-lg border border-zinc-800">
+                    <div class="text-xs text-zinc-500 uppercase tracking-wider">NVIDIA RTX 4090 Monthly Cost</div>
+                    <div id="costA" class="text-3xl font-bold text-white mt-2">$0.00</div>
+                    <div class="text-xs text-zinc-500 mt-1">Base Rate: $0.45/hr</div>
+                </div>
+                <div class="p-5 bg-zinc-950 rounded-lg border border-emerald-900/60">
+                    <div class="text-xs text-emerald-400 uppercase tracking-wider">NVIDIA H100 80GB Speed-Adjusted Cost</div>
+                    <div id="costB" class="text-3xl font-bold text-emerald-400 mt-2">$0.00</div>
+                    <div class="text-xs text-zinc-500 mt-1">Speed Multiplier: 3.0x</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 bg-zinc-900/60 border border-zinc-800 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <h3 class="font-bold text-white">Deploying NVIDIA RTX 4090 or NVIDIA H100 80GB locally?</h3>
+                <p class="text-sm text-zinc-400">Compare current retail hardware prices and stock availability.</p>
+            </div>
+            <a href="https://www.amazon.com/s?k=NVIDIA+RTX+4090+OC+Edition&tag=milesrma-20" target="_blank" rel="nofollow sponsored"
+               class="whitespace-nowrap bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-6 py-3 rounded-lg transition">
+               Check Hardware Prices &rarr;
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const slider = document.getElementById('hrsSlider'), hrsVal = document.getElementById('hrsVal'), costA = document.getElementById('costA'), costB = document.getElementById('costB');
+        const rateA = 0.45, rateB = 4.5, mult = 3.0;
+        function calc() {
+            let h = parseFloat(slider.value);
+            hrsVal.innerText = h;
+            costA.innerText = '$' + (h * rateA).toFixed(2);
+            costB.innerText = '$' + ((h / mult) * rateB).toFixed(2);
+        }
+        slider.addEventListener('input', calc);
+        calc();
+    </script>
+</body>
+</html>
