@@ -1,0 +1,1377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"&gt;</p>
+<p class="p1">&lt;title&gt;AURA ATELIER | Architectural &amp;amp; Spatial Engineering&lt;/title&gt;</p>
+<p class="p1">&lt;meta name="description" content="Real estate development, architecture and bespoke luxury interior finishing — delivered as one seamless turnkey experience."&gt;</p>
+<p class="p1">&lt;meta name="theme-color" content="#050505"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- Fonts --&gt;</p>
+<p class="p1">&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
+<p class="p1">&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</p>
+<p class="p1">&lt;link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- Tailwind (Play CDN: supports backdrop-blur-md, border-white/10 and arbitrary values) --&gt;</p>
+<p class="p1">&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>tailwind.config = {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>theme: {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>extend: {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>fontFamily: {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>display: ['"Space Grotesk"', 'sans-serif'],</p>
+<p class="p1"><span class="Apple-converted-space">          </span>sans: ['Manrope', 'sans-serif'],</p>
+<p class="p1"><span class="Apple-converted-space">          </span>mono: ['"JetBrains Mono"', 'monospace']</p>
+<p class="p1"><span class="Apple-converted-space">        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>colors: { ink: '#050505', onyx: '#09090b', graphite: '#18181b', titanium: '#a1a1aa' }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- Three.js r128 + GSAP + ScrollTrigger (cdnjs) --&gt;</p>
+<p class="p1">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"&gt;&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>:root{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--accent:#C9A96E;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--accent-rgb:201,169,110;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--bg:#050505;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--bg-2:#09090b;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--card:#18181b;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--titanium:#a1a1aa;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>*{box-sizing:border-box}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>html,body{background:var(--bg);color:#e4e4e7}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>html{scroll-behavior:smooth}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>body{font-family:'Manrope',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>::selection{background:rgba(var(--accent-rgb),.35);color:#fff}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* WebGL canvas */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#webgl-canvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;outline:none;pointer-events:none}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>body.no-webgl #webgl-canvas{display:none}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>body.no-webgl{background:</p>
+<p class="p1"><span class="Apple-converted-space">    </span>radial-gradient(60% 50% at 70% 30%, rgba(var(--accent-rgb),.12), transparent 70%),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>radial-gradient(50% 40% at 20% 80%, rgba(161,161,170,.08), transparent 70%), #050505}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.site-layer{position:relative;z-index:2}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.vignette{position:fixed;inset:0;z-index:1;pointer-events:none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background:radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0,0,0,.75) 100%)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.06;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>animation:grain 8s steps(10) infinite}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@keyframes grain{0%,100%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.font-display{font-family:'Space Grotesk',sans-serif;letter-spacing:-.035em}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.text-accent{color:var(--accent)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.bg-accent{background:var(--accent)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.accent-grad{background:linear-gradient(115deg,#ffffff 0%,var(--accent) 48%,rgba(var(--accent-rgb),.55) 100%);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>-webkit-background-clip:text;background-clip:text;color:transparent}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.hairline{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.glass{background:rgba(24,24,27,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.glass-strong{background:rgba(12,12,14,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.1)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Buttons */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary{position:relative;display:inline-flex;align-items:center;gap:.75rem;padding:1rem 1.6rem;border-radius:999px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background:var(--accent);color:#0a0a0a;font-weight:600;letter-spacing:.01em;overflow:hidden;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>box-shadow:0 10px 40px -10px rgba(var(--accent-rgb),.6);transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 50px -12px rgba(var(--accent-rgb),.8)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary:hover::after{transform:translateX(120%)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-ghost{display:inline-flex;align-items:center;gap:.75rem;padding:1rem 1.6rem;border-radius:999px;border:1px solid rgba(255,255,255,.14);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color:#e4e4e7;transition:border-color .3s,background .3s}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-ghost:hover{border-color:rgba(var(--accent-rgb),.6);background:rgba(var(--accent-rgb),.06)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Nav */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#site-nav{transition:background .5s,border-color .5s,padding .5s}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#site-nav.scrolled{background:rgba(5,5,5,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:rgba(255,255,255,.08)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.nav-link{position:relative;color:#a1a1aa;transition:color .3s}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.nav-link::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .5s cubic-bezier(.2,.8,.2,1)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.nav-link:hover{color:#fff}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.nav-link:hover::after{transform:scaleX(1);transform-origin:left}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Pill */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2.4s infinite}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.7)}}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Progress bar */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#scroll-progress{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:left;transform:scaleX(0);z-index:60;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background:linear-gradient(90deg,rgba(var(--accent-rgb),.2),var(--accent))}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Spotlight cards */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.spot{position:relative;overflow:hidden}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.spot::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .5s;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(var(--accent-rgb),.14),transparent 60%)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.spot:hover::before{opacity:1}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.card-lift{transition:transform .6s cubic-bezier(.2,.8,.2,1),border-color .5s}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.card-lift:hover{transform:translateY(-6px);border-color:rgba(var(--accent-rgb),.35)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Marquee */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.marquee-track{display:flex;width:max-content;animation:marquee 38s linear infinite}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Manifesto words */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.manifesto .w{opacity:.14;transition:none}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Reveal (enabled only when JS + GSAP are present) */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>html.js-anim .reveal{opacity:0;transform:translateY(40px)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>html.js-anim .hero-anim{opacity:0}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Range slider */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input[type=range].lux{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:999px;outline:none;cursor:pointer;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background:linear-gradient(90deg,var(--accent) 0%,var(--accent) var(--fill,30%),rgba(255,255,255,.1) var(--fill,30%),rgba(255,255,255,.1) 100%)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input[type=range].lux::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#09090b;border:2px solid var(--accent);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>box-shadow:0 0 0 6px rgba(var(--accent-rgb),.14),0 0 26px rgba(var(--accent-rgb),.55);cursor:grab;transition:transform .2s}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input[type=range].lux:active::-webkit-slider-thumb{transform:scale(1.15);cursor:grabbing}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input[type=range].lux::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#09090b;border:2px solid var(--accent);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>box-shadow:0 0 0 6px rgba(var(--accent-rgb),.14),0 0 26px rgba(var(--accent-rgb),.55);cursor:grab}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input[type=range].lux::-moz-range-track{background:transparent}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input[type=range].lux:focus-visible{box-shadow:0 0 0 3px rgba(var(--accent-rgb),.35)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Tier options */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-option{transition:border-color .35s,background .35s,transform .35s}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-option:hover{border-color:rgba(255,255,255,.22)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-option[aria-checked="true"]{border-color:rgba(var(--accent-rgb),.75);background:rgba(var(--accent-rgb),.08)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-option .tier-radio{transition:all .3s}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tier-option[aria-checked="true"] .tier-radio{border-color:var(--accent);box-shadow:inset 0 0 0 4px #09090b;background:var(--accent)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.chip{transition:all .3s}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.chip:hover,.chip.active{border-color:rgba(var(--accent-rgb),.6);color:#fff}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,rgba(var(--accent-rgb),.35),var(--accent));transition:width .8s cubic-bezier(.2,.8,.2,1)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Project "renders" (pure CSS) */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.render{position:relative;overflow:hidden;isolation:isolate}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.render::before{content:"";position:absolute;inset:0;z-index:-1;transition:transform 1.4s cubic-bezier(.2,.8,.2,1)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.render:hover::before{transform:scale(1.06)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.render-1::before{background:</p>
+<p class="p1"><span class="Apple-converted-space">    </span>repeating-linear-gradient(90deg,transparent 0 22px,rgba(255,255,255,.05) 22px 23px),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>repeating-linear-gradient(0deg,transparent 0 30px,rgba(var(--accent-rgb),.16) 30px 31px),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>linear-gradient(180deg,#0d0d10 0%,#16161a 55%,#050505 100%)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.render-2::before{background:</p>
+<p class="p1"><span class="Apple-converted-space">    </span>radial-gradient(60% 40% at 70% 20%,rgba(var(--accent-rgb),.35),transparent 70%),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>repeating-linear-gradient(115deg,transparent 0 40px,rgba(255,255,255,.04) 40px 41px),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>linear-gradient(160deg,#111114,#060607)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.render-3::before{background:</p>
+<p class="p1"><span class="Apple-converted-space">    </span>linear-gradient(0deg,rgba(var(--accent-rgb),.22) 0 2px,transparent 2px) 0 72%/100% 100% no-repeat,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 60px),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>radial-gradient(80% 50% at 50% 100%,rgba(161,161,170,.16),transparent 70%),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>linear-gradient(180deg,#0a0a0c,#141417)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.render-4::before{background:</p>
+<p class="p1"><span class="Apple-converted-space">    </span>conic-gradient(from 210deg at 30% 60%,rgba(var(--accent-rgb),.28),transparent 25%,rgba(255,255,255,.05) 40%,transparent 60%),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>repeating-radial-gradient(circle at 30% 60%,transparent 0 26px,rgba(255,255,255,.035) 26px 27px),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>linear-gradient(180deg,#0c0c0e,#050505)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Loader */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#loader{position:fixed;inset:0;z-index:100;background:#050505;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.25rem;transition:opacity .8s,visibility .8s}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#loader.done{opacity:0;visibility:hidden}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#loader .bar{width:180px;height:1px;background:rgba(255,255,255,.1);overflow:hidden}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#loader .bar span{display:block;height:100%;width:100%;background:var(--accent);transform-origin:left;animation:load 1.4s cubic-bezier(.6,0,.2,1) forwards}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@keyframes load{from{transform:scaleX(0)}to{transform:scaleX(1)}}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Floating CTA */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.wa-float{position:fixed;right:1.25rem;bottom:1.25rem;z-index:55}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.wa-float .ring{position:absolute;inset:0;border-radius:999px;border:1px solid var(--accent);animation:ring 2.8s infinite}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.6);opacity:0}}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>.scroll-cue{width:1px;height:56px;background:linear-gradient(180deg,var(--accent),transparent);animation:cue 2.2s ease-in-out infinite;transform-origin:top}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>@media (prefers-reduced-motion: reduce){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.marquee-track,.grain,.pill-dot,.wa-float .ring,.scroll-cue{animation:none}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>html{scroll-behavior:auto}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Loader --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="loader" aria-hidden="true"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="font-display text-sm tracking-[0.5em] text-zinc-400"&gt;&lt;span class="brand-mirror"&gt;AURA ATELIER&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bar"&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="scroll-progress"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Fixed WebGL background --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;canvas id="webgl-canvas" aria-hidden="true"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="vignette"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="grain"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="site-layer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- ================= NAV ================= --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;nav id="site-nav" class="fixed top-0 inset-x-0 z-50 border-b border-transparent"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="max-w-7xl mx-auto px-5 md:px-8 h-20 flex items-center justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="#top" class="flex items-center gap-3 group" aria-label="Home"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;path d="M13 1L25 13L13 25L1 13Z" stroke="var(--accent)" stroke-width="1.2"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;path d="M13 6L20 13L13 20L6 13Z" fill="var(--accent)" fill-opacity=".85"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span id="brand-logo" class="font-display text-[15px] md:text-base font-semibold tracking-[0.28em] text-white"&gt;AURA ATELIER&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hidden md:flex items-center gap-10 text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#studio" class="nav-link"&gt;Studio&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#services" class="nav-link"&gt;Services&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#projects" class="nav-link"&gt;Projects&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#estimator" class="nav-link"&gt;Estimator&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="https://wa.me/971500000000" target="_blank" rel="noopener" class="wa-link hidden sm:inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/15 hover:border-[color:var(--accent)] transition-colors"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="pill-dot"&gt;&lt;/span&gt; Private Consultation</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/nav&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;main id="top"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- ================= HERO ================= --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;section id="hero" class="relative min-h-[100svh] flex items-center pt-28 pb-16"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto px-5 md:px-8 w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="max-w-3xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="hero-anim inline-flex items-center gap-3 glass rounded-full pl-3 pr-4 py-1.5 mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="pill-dot"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span id="brand-city-badge" class="font-mono text-[11px] tracking-[0.3em] text-zinc-300"&gt;RIYADH • DUBAI • CAIRO&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 id="hero-title" class="hero-anim font-display font-semibold text-white leading-[0.95] text-[clamp(2.6rem,7.2vw,6.6rem)]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span data-brand-slot class="block"&gt;AURA ATELIER&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="block accent-grad"&gt;Spaces Engineered to Outlast Time.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/h1&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p id="hero-subtitle" class="hero-anim mt-8 text-lg md:text-xl text-zinc-400 leading-relaxed max-w-2xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>Real estate development, award-winning architecture and bespoke interior finishing — delivered as one seamless, turnkey experience for those who build legacies.</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="hero-anim mt-10 flex flex-wrap items-center gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;a id="cta-whatsapp-btn" href="https://wa.me/971500000000" target="_blank" rel="noopener" class="btn-primary"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"&gt;&lt;path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.2L4 20z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/&gt;&lt;path d="M9 10h6M9 13.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Book a Private Consultation</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;a href="#estimator" class="btn-ghost"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Estimate Your Space</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"&gt;&lt;path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="hero-anim mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="font-display text-3xl text-white"&gt;&lt;span class="counter" data-target="120"&gt;0&lt;/span&gt;&lt;span class="text-accent"&gt;+&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-1 text-xs uppercase tracking-[0.2em] text-zinc-500"&gt;Landmark projects&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="font-display text-3xl text-white"&gt;&lt;span class="counter" data-target="2.4" data-decimals="1"&gt;0&lt;/span&gt;&lt;span class="text-accent"&gt;M&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-1 text-xs uppercase tracking-[0.2em] text-zinc-500"&gt;Sqm delivered&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="font-display text-3xl text-white"&gt;&lt;span class="counter" data-target="18"&gt;0&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-1 text-xs uppercase tracking-[0.2em] text-zinc-500"&gt;Years of craft&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="font-display text-3xl text-white"&gt;&lt;span class="counter" data-target="36"&gt;0&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-1 text-xs uppercase tracking-[0.2em] text-zinc-500"&gt;Design awards&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3 text-[10px] tracking-[0.4em] text-zinc-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>SCROLL</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="scroll-cue"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- ================= MARQUEE ================= --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;section class="relative py-8 border-y border-white/5 bg-black/30 backdrop-blur-sm overflow-hidden" aria-hidden="true"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="marquee-track font-display text-2xl md:text-4xl text-zinc-600 whitespace-nowrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Branded Residences&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Sky Penthouses&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Signature Villas&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Hospitality&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Executive Workplaces&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Mixed-Use Towers&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Branded Residences&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Sky Penthouses&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Signature Villas&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Hospitality&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Executive Workplaces&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-8"&gt;Mixed-Use Towers&lt;/span&gt;&lt;span class="text-accent"&gt;◆&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- ================= MANIFESTO ================= --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;section id="studio" class="relative py-32 md:py-44"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-6xl mx-auto px-5 md:px-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="reveal flex items-center gap-4 mb-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="font-mono text-xs text-accent tracking-[0.3em]"&gt;00 — THE STUDIO&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="hairline flex-1"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p class="manifesto font-display text-[clamp(1.8rem,4.2vw,3.6rem)] leading-[1.12] text-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>We do not decorate buildings. We engineer atmospheres — from the first survey line to the last hand-stitched panel — so every square meter carries intention, precision and a quiet kind of power.</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="reveal mt-16 grid md:grid-cols-3 gap-8 text-sm text-zinc-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="border-t border-white/10 pt-6"&gt;&lt;span class="text-white font-medium block mb-2"&gt;One contract. One team.&lt;/span&gt;Development, design and delivery under a single point of accountability.&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="border-t border-white/10 pt-6"&gt;&lt;span class="text-white font-medium block mb-2"&gt;Digital twin first.&lt;/span&gt;Every space is built and walked in 3D before a single stone is cut.&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="border-t border-white/10 pt-6"&gt;&lt;span class="text-white font-medium block mb-2"&gt;Fixed-price certainty.&lt;/span&gt;Transparent budgets, locked timelines and a ten-year finishing warranty.&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- ================= SERVICES ================= --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;section id="services" class="relative py-28 md:py-36"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto px-5 md:px-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="reveal"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="font-mono text-xs text-accent tracking-[0.3em]"&gt;01 — CORE OFFERINGS&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h2 class="mt-5 font-display text-4xl md:text-6xl text-white font-semibold leading-[1]"&gt;Three disciplines.&lt;br&gt;&lt;span class="text-zinc-500"&gt;One signature.&lt;/span&gt;&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="reveal max-w-md text-zinc-400"&gt;Engage us for a single discipline or the complete journey — land to keys. Every engagement is led by a founding partner.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="grid md:grid-cols-3 gap-5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Card 1 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;article class="reveal spot card-lift glass rounded-3xl p-8 md:p-10 flex flex-col min-h-[440px]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-center justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="font-mono text-xs text-zinc-500"&gt;01&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"&gt;&lt;rect x="10" y="4" width="14" height="32" stroke="var(--accent)" stroke-width="1.2"/&gt;&lt;rect x="24" y="14" width="8" height="22" stroke="#71717a" stroke-width="1.2"/&gt;&lt;path d="M14 10h6M14 16h6M14 22h6M14 28h6" stroke="#71717a" stroke-width="1.2"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 id="service-1-title" class="mt-auto font-display text-3xl text-white font-medium leading-tight"&gt;Real Estate Development&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="mt-4 text-zinc-400 leading-relaxed"&gt;Site acquisition, feasibility, financing structures and delivery of branded residential and mixed-use assets engineered for value.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-8 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.15em] text-zinc-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="px-3 py-1.5 rounded-full border border-white/10"&gt;Feasibility&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="px-3 py-1.5 rounded-full border border-white/10"&gt;Joint Ventures&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="px-3 py-1.5 rounded-full border border-white/10"&gt;Asset Strategy&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/article&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Card 2 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;article class="reveal spot card-lift glass rounded-3xl p-8 md:p-10 flex flex-col min-h-[440px]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-center justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="font-mono text-xs text-zinc-500"&gt;02&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"&gt;&lt;path d="M4 34L20 6L36 34Z" stroke="var(--accent)" stroke-width="1.2"/&gt;&lt;path d="M12 34L20 20L28 34" stroke="#71717a" stroke-width="1.2"/&gt;&lt;circle cx="20" cy="6" r="2" fill="var(--accent)"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 id="service-2-title" class="mt-auto font-display text-3xl text-white font-medium leading-tight"&gt;Architecture &amp;amp; Master Planning&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="mt-4 text-zinc-400 leading-relaxed"&gt;Parametric architecture, façade engineering and master plans that balance climate, light and identity into enduring landmarks.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-8 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.15em] text-zinc-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="px-3 py-1.5 rounded-full border border-white/10"&gt;Concept&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="px-3 py-1.5 rounded-full border border-white/10"&gt;BIM / Digital Twin&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="px-3 py-1.5 rounded-full border border-white/10"&gt;Façades&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/article&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Card 3 --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;article class="reveal spot card-lift glass rounded-3xl p-8 md:p-10 flex flex-col min-h-[440px]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-center justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="font-mono text-xs text-zinc-500"&gt;03&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"&gt;&lt;rect x="4" y="22" width="32" height="10" rx="2" stroke="var(--accent)" stroke-width="1.2"/&gt;&lt;path d="M8 22v-6a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v6" stroke="#71717a" stroke-width="1.2"/&gt;&lt;path d="M8 32v4M32 32v4" stroke="#71717a" stroke-width="1.2"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 id="service-3-title" class="mt-auto font-display text-3xl text-white font-medium leading-tight"&gt;Luxury Interior Finishing&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="mt-4 text-zinc-400 leading-relaxed"&gt;Turnkey interiors in rare stone, hand-finished joinery, couture lighting and integrated smart systems — detailed to the millimeter.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-8 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.15em] text-zinc-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="px-3 py-1.5 rounded-full border border-white/10"&gt;Turnkey&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="px-3 py-1.5 rounded-full border border-white/10"&gt;Bespoke Joinery&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="px-3 py-1.5 rounded-full border border-white/10"&gt;FF&amp;amp;E&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/article&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- ================= PROCESS ================= --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;section class="relative py-28 md:py-36"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto px-5 md:px-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="reveal mb-16"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="font-mono text-xs text-accent tracking-[0.3em]"&gt;02 — METHOD&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="mt-5 font-display text-4xl md:text-6xl text-white font-semibold leading-[1]"&gt;From vision to keys,&lt;br&gt;&lt;span class="text-zinc-500"&gt;in four precise movements.&lt;/span&gt;&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 rounded-3xl overflow-hidden border border-white/10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="reveal bg-[#09090b]/80 backdrop-blur-md p-8 md:p-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="font-mono text-accent text-sm"&gt;I.&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h4 class="mt-10 font-display text-xl text-white"&gt;Brief &amp;amp; Site Intelligence&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="mt-3 text-sm text-zinc-400 leading-relaxed"&gt;Lifestyle interviews, site analytics, zoning and investment modelling.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-6 font-mono text-[11px] text-zinc-600"&gt;WEEK 01 — 03&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="reveal bg-[#09090b]/80 backdrop-blur-md p-8 md:p-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="font-mono text-accent text-sm"&gt;II.&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h4 class="mt-10 font-display text-xl text-white"&gt;Concept &amp;amp; Digital Twin&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="mt-3 text-sm text-zinc-400 leading-relaxed"&gt;Architecture, material palettes and an immersive walkthrough you approve in 3D.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-6 font-mono text-[11px] text-zinc-600"&gt;WEEK 04 — 10&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="reveal bg-[#09090b]/80 backdrop-blur-md p-8 md:p-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="font-mono text-accent text-sm"&gt;III.&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h4 class="mt-10 font-display text-xl text-white"&gt;Engineering &amp;amp; Procurement&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="mt-3 text-sm text-zinc-400 leading-relaxed"&gt;Structural, MEP and global sourcing of stone, metals and couture fittings.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-6 font-mono text-[11px] text-zinc-600"&gt;WEEK 11 — 22&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="reveal bg-[#09090b]/80 backdrop-blur-md p-8 md:p-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="font-mono text-accent text-sm"&gt;IV.&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h4 class="mt-10 font-display text-xl text-white"&gt;Turnkey Handover&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="mt-3 text-sm text-zinc-400 leading-relaxed"&gt;White-glove snagging, styling, smart-home tuning and a ten-year warranty.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-6 font-mono text-[11px] text-zinc-600"&gt;DELIVERY&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- ================= PROJECTS ================= --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;section id="projects" class="relative py-28 md:py-36"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto px-5 md:px-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="reveal"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="font-mono text-xs text-accent tracking-[0.3em]"&gt;03 — SELECTED WORK&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h2 class="mt-5 font-display text-4xl md:text-6xl text-white font-semibold leading-[1]"&gt;Built to be remembered.&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="#estimator" class="reveal btn-ghost self-start md:self-auto"&gt;Start your project&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="grid md:grid-cols-12 gap-5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;article class="reveal render render-1 md:col-span-7 rounded-3xl border border-white/10 min-h-[420px] md:min-h-[560px] p-8 flex flex-col justify-end"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-end justify-between gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="font-mono text-[11px] tracking-[0.25em] text-accent"&gt;RESIDENTIAL TOWER&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;h3 class="mt-3 font-display text-3xl md:text-4xl text-white"&gt;Obsidian Residences&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-right font-mono text-xs text-zinc-400 leading-6"&gt;42 FLOORS&lt;br&gt;86,000 SQM&lt;br&gt;2025&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/article&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;article class="reveal render render-2 md:col-span-5 rounded-3xl border border-white/10 min-h-[420px] md:min-h-[560px] p-8 flex flex-col justify-end"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="font-mono text-[11px] tracking-[0.25em] text-accent"&gt;SKY PENTHOUSE&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="mt-3 font-display text-3xl text-white"&gt;The Meridian Penthouse&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="mt-2 text-sm text-zinc-400"&gt;1,450 sqm · Full-floor bespoke interior&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/article&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;article class="reveal render render-3 md:col-span-5 rounded-3xl border border-white/10 min-h-[380px] p-8 flex flex-col justify-end"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="font-mono text-[11px] tracking-[0.25em] text-accent"&gt;SIGNATURE VILLAS&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="mt-3 font-display text-3xl text-white"&gt;Nile Atelier Villas&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="mt-2 text-sm text-zinc-400"&gt;24 villas · Architecture + turnkey finishing&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/article&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;article class="reveal render render-4 md:col-span-7 rounded-3xl border border-white/10 min-h-[380px] p-8 flex flex-col justify-end"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-end justify-between gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="font-mono text-[11px] tracking-[0.25em] text-accent"&gt;HOSPITALITY&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;h3 class="mt-3 font-display text-3xl md:text-4xl text-white"&gt;Sable Pavilion&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-right font-mono text-xs text-zinc-400 leading-6"&gt;BOUTIQUE HOTEL&lt;br&gt;64 KEYS&lt;br&gt;2026&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/article&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- ================= ESTIMATOR ================= --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;section id="estimator" class="relative py-28 md:py-36"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto px-5 md:px-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="reveal max-w-3xl mb-14"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="font-mono text-xs text-accent tracking-[0.3em]"&gt;04 — INSTANT ESTIMATOR&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="mt-5 font-display text-4xl md:text-6xl text-white font-semibold leading-[1]"&gt;Instant Project &amp;amp;&lt;br&gt;Space Cost Estimator&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="mt-6 text-zinc-400 text-lg"&gt;Shape your space, choose a finish tier and see an indicative investment in real time. Send it to our team and receive a tailored proposal within 24 hours.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="grid lg:grid-cols-12 gap-5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Controls --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="reveal lg:col-span-7 glass rounded-3xl p-7 md:p-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-center justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;label for="calc-area" class="text-sm uppercase tracking-[0.2em] text-zinc-400"&gt;Built-up Area&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="font-display text-3xl md:text-4xl text-white"&gt;&lt;span id="calc-area-value"&gt;450&lt;/span&gt; &lt;span class="text-base text-zinc-500"&gt;sqm&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;input id="calc-area" type="range" min="50" max="2000" step="10" value="450" class="lux mt-8" aria-label="Area in square meters"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-3 flex justify-between font-mono text-[11px] text-zinc-600"&gt;&lt;span&gt;50 SQM&lt;/span&gt;&lt;span&gt;2,000 SQM&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-6 flex flex-wrap gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button type="button" class="chip px-4 py-2 rounded-full border border-white/10 text-xs text-zinc-400" data-area="180"&gt;Apartment · 180&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button type="button" class="chip px-4 py-2 rounded-full border border-white/10 text-xs text-zinc-400" data-area="450"&gt;Penthouse · 450&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button type="button" class="chip px-4 py-2 rounded-full border border-white/10 text-xs text-zinc-400" data-area="900"&gt;Villa · 900&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button type="button" class="chip px-4 py-2 rounded-full border border-white/10 text-xs text-zinc-400" data-area="1800"&gt;Estate · 1,800&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="hairline my-10"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="text-sm uppercase tracking-[0.2em] text-zinc-400 mb-5"&gt;Finish Tier&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div id="tier-group" role="radiogroup" aria-label="Finish tier" class="grid gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button type="button" role="radio" aria-checked="false" data-tier="core" class="tier-option text-left rounded-2xl border border-white/10 p-5 flex items-start gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;span class="tier-radio mt-1 w-4 h-4 rounded-full border border-white/30 shrink-0"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;span class="flex-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="flex items-center justify-between gap-3"&gt;&lt;span class="font-display text-lg text-white"&gt;Core &amp;amp; Shell&lt;/span&gt;&lt;span class="font-mono text-xs text-zinc-500"&gt;×1.00&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="block mt-1 text-sm text-zinc-400"&gt;Structure, envelope, façade and MEP rough-ins — a pristine canvas.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button type="button" role="radio" aria-checked="true" data-tier="turnkey" class="tier-option text-left rounded-2xl border border-white/10 p-5 flex items-start gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;span class="tier-radio mt-1 w-4 h-4 rounded-full border border-white/30 shrink-0"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;span class="flex-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="flex items-center justify-between gap-3"&gt;&lt;span class="font-display text-lg text-white"&gt;Turnkey Signature&lt;/span&gt;&lt;span class="font-mono text-xs text-zinc-500"&gt;×1.72&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="block mt-1 text-sm text-zinc-400"&gt;Complete fit-out with premium stone, joinery, lighting and smart home. Move-in ready.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button type="button" role="radio" aria-checked="false" data-tier="bespoke" class="tier-option text-left rounded-2xl border border-white/10 p-5 flex items-start gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;span class="tier-radio mt-1 w-4 h-4 rounded-full border border-white/30 shrink-0"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;span class="flex-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="flex items-center justify-between gap-3"&gt;&lt;span class="font-display text-lg text-white"&gt;Bespoke Penthouse&lt;/span&gt;&lt;span class="font-mono text-xs text-zinc-500"&gt;×2.85&lt;/span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="block mt-1 text-sm text-zinc-400"&gt;Rare materials, couture craftsmanship, curated art and FF&amp;amp;E — no compromise.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-8 flex items-center gap-2 text-xs text-zinc-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="pill-dot"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Base rate from &lt;span id="calc-rate" class="font-mono text-zinc-300"&gt;1,850&lt;/span&gt; &lt;span class="calc-currency font-mono text-zinc-300"&gt;USD&lt;/span&gt; / sqm</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Result --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="reveal lg:col-span-5 glass-strong rounded-3xl p-7 md:p-10 flex flex-col relative overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="absolute -top-24 -right-24 w-64 h-64 rounded-full blur-3xl opacity-30" style="background:var(--accent)"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="relative"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-sm uppercase tracking-[0.2em] text-zinc-400"&gt;Estimated Investment&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4 font-display font-semibold text-white leading-none text-[clamp(2.2rem,4.6vw,3.6rem)]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;span class="calc-currency text-accent text-[0.5em] align-top mr-1"&gt;USD&lt;/span&gt;&lt;span id="calc-total"&gt;0&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-3 font-mono text-xs text-zinc-500"&gt;RANGE &lt;span id="calc-range"&gt;—&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-8 grid grid-cols-2 gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="rounded-2xl border border-white/10 p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="text-[11px] uppercase tracking-[0.2em] text-zinc-500"&gt;Effective / sqm&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-2 font-display text-xl text-white" id="calc-per-sqm"&gt;—&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="rounded-2xl border border-white/10 p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="text-[11px] uppercase tracking-[0.2em] text-zinc-500"&gt;Timeline&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-2 font-display text-xl text-white"&gt;&lt;span id="calc-timeline"&gt;—&lt;/span&gt; &lt;span class="text-sm text-zinc-500"&gt;months&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-8 space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex justify-between text-xs text-zinc-400"&gt;&lt;span&gt;Design &amp;amp; Engineering&lt;/span&gt;&lt;span id="bar-1-val" class="font-mono"&gt;—&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-2 h-1.5 rounded-full bg-white/5"&gt;&lt;div id="bar-1" class="bar-fill" style="width:0%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex justify-between text-xs text-zinc-400"&gt;&lt;span&gt;Construction &amp;amp; Finishing&lt;/span&gt;&lt;span id="bar-2-val" class="font-mono"&gt;—&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-2 h-1.5 rounded-full bg-white/5"&gt;&lt;div id="bar-2" class="bar-fill" style="width:0%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex justify-between text-xs text-zinc-400"&gt;&lt;span&gt;FF&amp;amp;E &amp;amp; Smart Systems&lt;/span&gt;&lt;span id="bar-3-val" class="font-mono"&gt;—&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-2 h-1.5 rounded-full bg-white/5"&gt;&lt;div id="bar-3" class="bar-fill" style="width:0%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;a id="calc-whatsapp-btn" href="https://wa.me/971500000000" target="_blank" rel="noopener" class="btn-primary relative mt-10 justify-center w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"&gt;&lt;path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.2L4 20z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/&gt;&lt;path d="M9 10h6M9 13.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Send Estimate to WhatsApp</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="relative mt-4 text-[11px] leading-relaxed text-zinc-600"&gt;Indicative only. Final pricing depends on site conditions, specifications and market rates. Includes design, materials and execution; excludes land and permits.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- ================= TESTIMONIAL ================= --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;section class="relative py-28 md:py-36"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-5xl mx-auto px-5 md:px-8 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;svg class="reveal mx-auto" width="44" height="34" viewBox="0 0 44 34" fill="none" aria-hidden="true"&gt;&lt;path d="M0 34V20C0 8 7 1 18 0v7c-6 1-9 5-9 11h9v16H0zm26 0V20C26 8 33 1 44 0v7c-6 1-9 5-9 11h9v16H26z" fill="var(--accent)" fill-opacity=".8"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;blockquote class="reveal mt-10 font-display text-[clamp(1.6rem,3.4vw,2.8rem)] leading-[1.2] text-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>They delivered a 1,400 sqm residence on the exact day promised — and every detail felt inevitable, as if the space had always existed.</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/blockquote&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="reveal mt-10 text-sm text-zinc-500 tracking-[0.2em] uppercase"&gt;Chairman · Private Family Office&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- ================= FINAL CTA ================= --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;section class="relative py-24 md:py-32"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto px-5 md:px-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="reveal glass rounded-[2rem] p-10 md:p-16 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10 relative overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="absolute inset-0 opacity-40 pointer-events-none" style="background:radial-gradient(60% 120% at 100% 50%,rgba(var(--accent-rgb),.25),transparent 60%)"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="relative max-w-2xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="font-mono text-xs text-accent tracking-[0.3em]"&gt;BY APPOINTMENT&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h2 class="mt-5 font-display text-4xl md:text-5xl text-white font-semibold leading-[1.05]"&gt;Your next landmark begins with one conversation.&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="mt-5 text-zinc-400"&gt;Speak directly with a partner at &lt;span class="brand-mirror text-white"&gt;AURA ATELIER&lt;/span&gt;. Discreet, no obligation, answered within the hour.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="https://wa.me/971500000000" target="_blank" rel="noopener" class="wa-link btn-primary relative shrink-0"&gt;Start on WhatsApp</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"&gt;&lt;path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- ================= FOOTER ================= --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer class="relative border-t border-white/10 bg-black/60 backdrop-blur-md"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="max-w-7xl mx-auto px-5 md:px-8 py-16 grid md:grid-cols-4 gap-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="md:col-span-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="flex items-center gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;svg width="22" height="22" viewBox="0 0 26 26" fill="none" aria-hidden="true"&gt;&lt;path d="M13 1L25 13L13 25L1 13Z" stroke="var(--accent)" stroke-width="1.2"/&gt;&lt;path d="M13 6L20 13L13 20L6 13Z" fill="var(--accent)" fill-opacity=".85"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="brand-mirror font-display tracking-[0.28em] text-white"&gt;AURA ATELIER&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p class="mt-5 max-w-sm text-sm text-zinc-500 leading-relaxed"&gt;Real estate development, architecture and luxury interior finishing for clients who measure quality in decades.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="text-xs uppercase tracking-[0.25em] text-zinc-500 mb-5"&gt;Explore&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;ul class="space-y-3 text-sm text-zinc-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;&lt;a href="#studio" class="hover:text-white transition-colors"&gt;Studio&lt;/a&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;&lt;a href="#services" class="hover:text-white transition-colors"&gt;Services&lt;/a&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;&lt;a href="#projects" class="hover:text-white transition-colors"&gt;Projects&lt;/a&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;&lt;a href="#estimator" class="hover:text-white transition-colors"&gt;Estimator&lt;/a&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="text-xs uppercase tracking-[0.25em] text-zinc-500 mb-5"&gt;Contact&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;ul class="space-y-3 text-sm text-zinc-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;&lt;a href="https://wa.me/971500000000" target="_blank" rel="noopener" class="wa-link hover:text-white transition-colors"&gt;WhatsApp concierge&lt;/a&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li class="footer-city"&gt;RIYADH • DUBAI • CAIRO&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;Private viewings by appointment&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="border-t border-white/5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto px-5 md:px-8 py-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-zinc-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;© &lt;span id="footer-year"&gt;2026&lt;/span&gt; &lt;span id="footer-brand"&gt;AURA ATELIER&lt;/span&gt;. All rights reserved.&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="font-mono tracking-[0.2em]"&gt;ARCHITECTURE · DEVELOPMENT · INTERIORS&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Floating CTA --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;a href="https://wa.me/971500000000" target="_blank" rel="noopener" class="wa-link wa-float w-14 h-14 rounded-full flex items-center justify-center text-black bg-accent shadow-[0_10px_40px_-8px_rgba(0,0,0,.8)]" aria-label="Chat on WhatsApp"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="ring"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"&gt;&lt;path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.2L4 20z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/&gt;&lt;path d="M9 10h6M9 13.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/a&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">(function () {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>'use strict';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* =====================================================================</p>
+<p class="p1"><span class="Apple-converted-space">     </span>DEFAULT CONFIG — the showcase brand (used when no URL params exist)</p>
+<p class="p1"><span class="Apple-converted-space">     </span>===================================================================== */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var CONFIG = {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>brand: 'AURA ATELIER',</p>
+<p class="p1"><span class="Apple-converted-space">    </span>descriptor: 'Architectural &amp; Spatial Engineering',</p>
+<p class="p1"><span class="Apple-converted-space">    </span>city: 'RIYADH • DUBAI • CAIRO',</p>
+<p class="p1"><span class="Apple-converted-space">    </span>phone: '971500000000',</p>
+<p class="p1"><span class="Apple-converted-space">    </span>accent: '#C9A96E',</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency: 'USD'</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>var $ = function (s, c) { return (c || document).querySelector(s); };</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var hasGSAP = typeof window.gsap !== 'undefined';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var hasST = hasGSAP &amp;&amp; typeof window.ScrollTrigger !== 'undefined';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var isMobile = window.matchMedia('(max-width: 768px)').matches;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (hasGSAP &amp;&amp; !reducedMotion) document.documentElement.classList.add('js-anim');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (hasST) gsap.registerPlugin(ScrollTrigger);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>var state = {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>phone: CONFIG.phone,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>currency: CONFIG.currency,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tier: 'turnkey'</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Seed phone from the HTML (so editing the markup's wa.me link also works)</p>
+<p class="p1"><span class="Apple-converted-space">  </span>(function seedPhone() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var btn = document.getElementById('cta-whatsapp-btn');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var m = btn &amp;&amp; btn.getAttribute('href') &amp;&amp; btn.getAttribute('href').match(/wa\.me\/(\d+)/);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (m) state.phone = m[1];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>})();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function getBrand() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var el = document.getElementById('brand-logo');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var t = el ? el.textContent.trim() : '';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return t || CONFIG.brand;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function waUrl(phone, msg) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function generalMessage() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return 'Hello ' + getBrand() + ', I would like to book a private consultation about a project.';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* =====================================================================</p>
+<p class="p1"><span class="Apple-converted-space">     </span>1) WEBGL — Procedural architectural tower (Three.js r128)</p>
+<p class="p1"><span class="Apple-converted-space">     </span>===================================================================== */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var three = (function initWebGL() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var canvas = document.getElementById('webgl-canvas');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!window.THREE || !canvas) { document.body.classList.add('no-webgl'); return null; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var renderer;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} catch (e) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.body.classList.add('no-webgl');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return null;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderer.setSize(window.innerWidth, window.innerHeight, false);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderer.setClearColor(0x050505, 1);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderer.outputEncoding = THREE.sRGBEncoding;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderer.toneMapping = THREE.ACESFilmicToneMapping;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderer.toneMappingExposure = 1.05;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var scene = new THREE.Scene();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scene.fog = new THREE.FogExp2(0x050505, 0.03);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 300);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>camera.position.set(0, 5, 17);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ---- Procedural studio environment for glass reflections ---- */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var pmrem = new THREE.PMREMGenerator(renderer);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var envScene = new THREE.Scene();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var envDisposables = [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var envBox = new THREE.Mesh(new THREE.BoxGeometry(40, 40, 40), new THREE.MeshBasicMaterial({ color: 0x040405, side: THREE.BackSide }));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>envScene.add(envBox); envDisposables.push(envBox);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var stripGeo = new THREE.PlaneGeometry(1, 1);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function addStrip(color, intensity, pos, scl, rot) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var mat = new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(intensity), side: THREE.DoubleSide });</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var m = new THREE.Mesh(stripGeo, mat);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>m.position.set(pos[0], pos[1], pos[2]); m.scale.set(scl[0], scl[1], 1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>m.rotation.set(rot[0], rot[1], 0);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>envScene.add(m); envDisposables.push(m);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>addStrip(0xfff0d8, 3.0, [0, 16, 0], [26, 4], [Math.PI / 2, 0]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>addStrip(0xffe2b0, 2.2, [18, 6, 0], [3, 22], [0, -Math.PI / 2]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>addStrip(0xa9bcff, 1.2, [-18, 8, 4], [2, 16], [0, Math.PI / 2]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>addStrip(0xffffff, 1.4, [0, 6, -18], [20, 1.2], [0, 0]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>addStrip(0xffd9a0, 1.0, [6, 3, 18], [10, 0.8], [0, Math.PI]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var envTex = pmrem.fromScene(envScene, 0.04).texture;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scene.environment = envTex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>envDisposables.forEach(function (m) { m.material.dispose(); });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>stripGeo.dispose(); envBox.geometry.dispose(); pmrem.dispose();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ---- Materials ---- */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var accentColor = new THREE.Color(CONFIG.accent);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var glassMat = new THREE.MeshStandardMaterial({ color: 0x0b0b0e, metalness: 0.95, roughness: 0.1, transparent: true, opacity: 0.84, envMapIntensity: 1.7 });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var plateMat = new THREE.MeshStandardMaterial({ color: 0xa1a1aa, metalness: 1, roughness: 0.28, envMapIntensity: 1.3 });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var edgeMat = new THREE.LineBasicMaterial({ color: accentColor.clone(), transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var softEdgeMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.08, depthWrite: false });</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ---- Tower ---- */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var root = new THREE.Group(); scene.add(root);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var tower = new THREE.Group(); root.add(tower);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var FLOORS = isMobile ? 16 : 22;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var FLOOR_H = 0.56;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var TOWER_H = FLOORS * FLOOR_H;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var glassGeo = new THREE.BoxGeometry(3, 0.44, 2.1);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var glassEdgeGeo = new THREE.EdgesGeometry(glassGeo);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var plateGeo = new THREE.BoxGeometry(3.25, 0.05, 2.35);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var plateEdgeGeo = new THREE.EdgesGeometry(plateGeo);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var floors = [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var rand = (function (seed) { return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; })(7);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (var i = 0; i &lt; FLOORS; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var t = i / (FLOORS - 1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var sx = 1 + Math.sin(i * 0.7) * 0.12 - t * 0.2;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var sz = 1 + Math.cos(i * 0.5) * 0.08 - t * 0.12;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var g = new THREE.Group();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var glass = new THREE.Mesh(glassGeo, glassMat); glass.scale.set(sx, 1, sz);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var edges = new THREE.LineSegments(glassEdgeGeo, edgeMat); edges.scale.copy(glass.scale);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var plate = new THREE.Mesh(plateGeo, plateMat); plate.position.y = -0.245; plate.scale.set(sx, 1, sz);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var plateEdges = new THREE.LineSegments(plateEdgeGeo, softEdgeMat); plateEdges.position.copy(plate.position); plateEdges.scale.copy(plate.scale);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>g.add(glass, edges, plate, plateEdges);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>var aPos = new THREE.Vector3(Math.sin(i * 0.45) * 0.22, i * FLOOR_H + 0.45, Math.cos(i * 0.33) * 0.08);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var aQuat = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, i * 0.062, 0));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var ang = rand() * Math.PI * 2, rad = 3.6 + rand() * 4.6;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var fPos = new THREE.Vector3(Math.cos(ang) * rad, i * FLOOR_H * 1.3 + (rand() - 0.5) * 3 - 0.5, Math.sin(ang) * rad * 0.7);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var fQuat = new THREE.Quaternion().setFromEuler(new THREE.Euler((rand() - 0.5) * 1.2, rand() * Math.PI * 2, (rand() - 0.5) * 1.2));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>g.userData = {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>aPos: aPos, aQuat: aQuat, fPos: fPos, fQuat: fQuat,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>phase: rand() * Math.PI * 2,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>spinAxis: new THREE.Vector3(rand() - 0.5, 1, rand() - 0.5).normalize(),</p>
+<p class="p1"><span class="Apple-converted-space">        </span>spinSpeed: 0.08 + rand() * 0.18</p>
+<p class="p1"><span class="Apple-converted-space">      </span>};</p>
+<p class="p1"><span class="Apple-converted-space">      </span>g.position.copy(fPos); g.quaternion.copy(fQuat); g.scale.setScalar(0.001);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tower.add(g); floors.push(g);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Podium</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var podiumGeo = new THREE.BoxGeometry(6.2, 0.3, 4.6);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var podium = new THREE.Mesh(podiumGeo, glassMat);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>podium.position.y = 0.15;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var podiumEdges = new THREE.LineSegments(new THREE.EdgesGeometry(podiumGeo), edgeMat);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>podiumEdges.position.copy(podium.position);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tower.add(podium, podiumEdges);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Vertical mullions / structural core lines</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var mullionPts = [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>[[-1.5, -1.05], [1.5, -1.05], [1.5, 1.05], [-1.5, 1.05], [-0.4, 0], [0.4, 0]].forEach(function (c) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>mullionPts.push(c[0], 0.3, c[1], c[0], TOWER_H + 0.3, c[1]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var mullionGeo = new THREE.BufferGeometry();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>mullionGeo.setAttribute('position', new THREE.Float32BufferAttribute(mullionPts, 3));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var mullions = new THREE.LineSegments(mullionGeo, new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.12, depthWrite: false }));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>mullions.scale.y = 0.001;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tower.add(mullions);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Crown halo</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var crownMat = new THREE.MeshBasicMaterial({ color: accentColor.clone(), transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var crown = new THREE.Mesh(new THREE.TorusGeometry(1.6, 0.012, 8, 128), crownMat);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>crown.rotation.x = Math.PI / 2;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>crown.position.y = TOWER_H + 1.1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tower.add(crown);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Ground: grid + rings</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var grid = new THREE.GridHelper(90, 90, 0x2a2a2e, 0x141416);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>grid.material.transparent = true; grid.material.opacity = 0.35; grid.material.depthWrite = false;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>root.add(grid);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var ringMat = new THREE.MeshBasicMaterial({ color: accentColor.clone(), transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var ring1 = new THREE.Mesh(new THREE.RingGeometry(4.6, 4.64, 160), ringMat);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var ring2 = new THREE.Mesh(new THREE.RingGeometry(7.2, 7.215, 160), ringMat.clone());</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ring2.material.opacity = 0.22;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ring1.rotation.x = ring2.rotation.x = -Math.PI / 2;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ring1.position.y = ring2.position.y = 0.02;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>root.add(ring1, ring2);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Glow sprite texture</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function makeGlowTexture() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var c = document.createElement('canvas'); c.width = c.height = 128;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var ctx = c.getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var grd = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grd.addColorStop(0, 'rgba(255,255,255,1)');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grd.addColorStop(0.18, 'rgba(255,255,255,0.85)');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grd.addColorStop(0.45, 'rgba(255,255,255,0.18)');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grd.addColorStop(1, 'rgba(255,255,255,0)');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.fillStyle = grd; ctx.fillRect(0, 0, 128, 128);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var tex = new THREE.CanvasTexture(c);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return tex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var glowTex = makeGlowTexture();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Floating light nodes</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var NODES = isMobile ? 28 : 52;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var nodeData = [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var nodePos = new Float32Array(NODES * 3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (var n = 0; n &lt; NODES; n++) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>nodeData.push({</p>
+<p class="p1"><span class="Apple-converted-space">        </span>a: rand() * Math.PI * 2,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>h: rand() * (TOWER_H + 2),</p>
+<p class="p1"><span class="Apple-converted-space">        </span>rFar: 5 + rand() * 6,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>rNear: 2.0 + rand() * 1.1,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>speed: (0.06 + rand() * 0.18) * (rand() &gt; 0.5 ? 1 : -1),</p>
+<p class="p1"><span class="Apple-converted-space">        </span>bob: rand() * Math.PI * 2</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var nodeGeo = new THREE.BufferGeometry();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePos, 3));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var nodeMat = new THREE.PointsMaterial({ size: 0.42, map: glowTex, color: accentColor.clone(), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var nodes = new THREE.Points(nodeGeo, nodeMat);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tower.add(nodes);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Node-to-core constellation lines</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var linkPos = new Float32Array(NODES * 6);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var linkGeo = new THREE.BufferGeometry();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>linkGeo.setAttribute('position', new THREE.BufferAttribute(linkPos, 3));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var linkMat = new THREE.LineBasicMaterial({ color: accentColor.clone(), transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var links = new THREE.LineSegments(linkGeo, linkMat);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tower.add(links);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Ambient dust</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var DUST = isMobile ? 600 : 1500;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var dustPos = new Float32Array(DUST * 3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var dustSpeed = new Float32Array(DUST);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for (var d = 0; d &lt; DUST; d++) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>dustPos[d * 3] = (rand() - 0.5) * 46;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>dustPos[d * 3 + 1] = rand() * 30 - 2;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>dustPos[d * 3 + 2] = (rand() - 0.5) * 46;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>dustSpeed[d] = 0.002 + rand() * 0.006;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var dustGeo = new THREE.BufferGeometry();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var dustMat = new THREE.PointsMaterial({ size: 0.06, map: glowTex, color: 0xd4d4d8, transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending, depthWrite: false });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var dust = new THREE.Points(dustGeo, dustMat);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scene.add(dust);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ---- Lights ---- */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scene.add(new THREE.AmbientLight(0x1c1c24, 1.1));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var key = new THREE.DirectionalLight(0xfff1dc, 1.4); key.position.set(8, 16, 6); scene.add(key);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var rim = new THREE.DirectionalLight(0x9fb4ff, 0.55); rim.position.set(-10, 6, -8); scene.add(rim);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var accentLight = new THREE.PointLight(accentColor.clone(), 3.2, 20, 2); scene.add(accentLight);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var accentLight2 = new THREE.PointLight(accentColor.clone(), 2.2, 16, 2); scene.add(accentLight2);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ---- Camera fly-through path ---- */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function V(x, y, z) { return new THREE.Vector3(x, y, z); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var camCurve = new THREE.CatmullRomCurve3([V(0, 4.8, 17.5), V(8.5, 6.2, 11), V(-7.5, 9, 9.5), V(5.5, 13.5, 7.5), V(0, 19.5, 10.5)]);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var lookCurve = new THREE.CatmullRomCurve3([V(0, 4.6, 0), V(0, 5.6, 0), V(0, 7.2, 0), V(0, 9, 0), V(0, 6.5, 0)]);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* ---- Interaction state ---- */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var scrollState = { target: 0, current: 0 };</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var mouse = { x: 0, y: 0, tx: 0, ty: 0 };</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var intro = { v: 0 };</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (hasGSAP) gsap.to(intro, { v: 1, duration: reducedMotion ? 0.01 : 3.2, ease: 'power3.out', delay: 0.4 });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>else intro.v = 1;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>window.addEventListener('pointermove', function (e) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>mouse.tx = (e.clientX / window.innerWidth) * 2 - 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>mouse.ty = (e.clientY / window.innerHeight) * 2 - 1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}, { passive: true });</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function readScroll() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var max = document.documentElement.scrollHeight - window.innerHeight;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>scrollState.target = max &gt; 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (hasST) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ScrollTrigger.create({</p>
+<p class="p1"><span class="Apple-converted-space">        </span>trigger: document.body, start: 'top top', end: 'bottom bottom',</p>
+<p class="p1"><span class="Apple-converted-space">        </span>onUpdate: function (self) { scrollState.target = self.progress; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>window.addEventListener('scroll', readScroll, { passive: true });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>readScroll();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function smoothstep(e0, e1, x) { x = Math.min(Math.max((x - e0) / (e1 - e0), 0), 1); return x * x * (3 - 2 * x); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function lerp(a, b, k) { return a + (b - a) * k; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var clock = new THREE.Clock();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var tmpV = new THREE.Vector3();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var tmpQ = new THREE.Quaternion();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var floatQ = new THREE.Quaternion();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var camPos = new THREE.Vector3();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var lookPos = new THREE.Vector3();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var motion = reducedMotion ? 0.15 : 1;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function tick() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var time = clock.getElapsedTime() * motion;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>scrollState.current += (scrollState.target - scrollState.current) * 0.06;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>mouse.x += (mouse.tx - mouse.x) * 0.05;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>mouse.y += (mouse.ty - mouse.y) * 0.05;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var p = scrollState.current;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>var assemble = smoothstep(0.03, 0.5, p);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var wire = smoothstep(0.6, 0.82, p) * (1 - smoothstep(0.94, 1, p) * 0.5);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Floors: float -&gt; assemble</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var i = 0; i &lt; floors.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var g = floors[i], u = g.userData;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var st = i / floors.length;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var k = smoothstep(st * 0.45, st * 0.45 + 0.55, assemble);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>tmpV.copy(u.fPos);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>tmpV.y += Math.sin(time * 0.6 + u.phase) * 0.28;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>tmpV.x += Math.cos(time * 0.4 + u.phase) * 0.15;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>g.position.lerpVectors(tmpV, u.aPos, k);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>tmpQ.setFromAxisAngle(u.spinAxis, time * u.spinSpeed);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>floatQ.copy(u.fQuat).multiply(tmpQ);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>g.quaternion.copy(floatQ).slerp(u.aQuat, k);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Breathing in assembled state</p>
+<p class="p1"><span class="Apple-converted-space">        </span>g.position.y += Math.sin(time * 0.8 + i * 0.35) * 0.015 * k;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var s = smoothstep(st * 0.5, st * 0.5 + 0.5, intro.v);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>g.scale.setScalar(Math.max(s, 0.001));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>mullions.scale.y = Math.max(smoothstep(0.35, 0.6, p), 0.001);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>mullions.material.opacity = 0.06 + wire * 0.3;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>crown.scale.setScalar(0.6 + assemble * 0.4 + Math.sin(time * 1.5) * 0.03);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>crown.material.opacity = 0.15 + assemble * 0.6;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>crown.rotation.z = time * 0.3;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>podium.scale.setScalar(Math.max(intro.v, 0.001));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>podiumEdges.scale.copy(podium.scale);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Wireframe morph</p>
+<p class="p1"><span class="Apple-converted-space">      </span>glassMat.opacity = 0.84 - wire * 0.76;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>plateMat.opacity = 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>edgeMat.opacity = 0.36 + wire * 0.55 + (1 - assemble) * 0.14;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>softEdgeMat.opacity = 0.08 + wire * 0.25;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Nodes</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var n = 0; n &lt; NODES; n++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var nd = nodeData[n];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var a = nd.a + time * nd.speed;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var r = lerp(nd.rFar, nd.rNear, assemble);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var y = nd.h + Math.sin(time * 0.7 + nd.bob) * 0.35;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>nodePos[n * 3] = Math.cos(a) * r;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>nodePos[n * 3 + 1] = y;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>nodePos[n * 3 + 2] = Math.sin(a) * r * 0.8;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>linkPos[n * 6] = nodePos[n * 3];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>linkPos[n * 6 + 1] = y;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>linkPos[n * 6 + 2] = nodePos[n * 3 + 2];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>linkPos[n * 6 + 3] = 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>linkPos[n * 6 + 4] = Math.min(Math.max(y, 0.4), TOWER_H);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>linkPos[n * 6 + 5] = 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>nodeGeo.attributes.position.needsUpdate = true;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>linkGeo.attributes.position.needsUpdate = true;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>nodeMat.size = 0.36 + Math.sin(time * 2) * 0.04 + wire * 0.1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>linkMat.opacity = 0.03 + assemble * 0.1 + wire * 0.12;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Dust drift</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var d = 0; d &lt; DUST; d++) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>dustPos[d * 3 + 1] += dustSpeed[d] * motion;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (dustPos[d * 3 + 1] &gt; 28) dustPos[d * 3 + 1] = -2;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>dustGeo.attributes.position.needsUpdate = true;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>dust.rotation.y = time * 0.01;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Rings</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ring1.scale.setScalar(1 + Math.sin(time * 0.9) * 0.015);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ring2.rotation.z = time * 0.05;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Root placement + rotation</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var offsetX = isMobile ? 0 : lerp(2.9, 0, smoothstep(0, 0.32, p));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>root.position.x = offsetX;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tower.rotation.y = time * 0.05 + p * Math.PI * 1.25 + mouse.x * 0.18;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Lights</p>
+<p class="p1"><span class="Apple-converted-space">      </span>accentLight.position.set(Math.cos(time * 0.4) * 5.5, 3 + (Math.sin(time * 0.3) + 1) * 5, Math.sin(time * 0.4) * 5.5);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>accentLight2.position.set(Math.cos(-time * 0.27 + 2) * 4, TOWER_H * (0.4 + p * 0.6), Math.sin(-time * 0.27 + 2) * 4);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>accentLight.intensity = 2.4 + wire * 2;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Camera</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var eased = p * p * (3 - 2 * p);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>camCurve.getPointAt(eased, camPos);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>lookCurve.getPointAt(eased, lookPos);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (isMobile || camera.aspect &lt; 1) { camPos.x *= 1.25; camPos.z *= 1.45; camPos.y += 1.5; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>camPos.x += mouse.x * 1.4 + offsetX * 0.3;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>camPos.y += -mouse.y * 0.9;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>camera.position.lerp(camPos, 0.12);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>lookPos.x += offsetX;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>camera.lookAt(lookPos);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderer.render(scene, camera);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>requestAnimationFrame(tick);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>requestAnimationFrame(tick);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>window.addEventListener('resize', function () {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>camera.aspect = window.innerWidth / window.innerHeight;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>camera.updateProjectionMatrix();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderer.setSize(window.innerWidth, window.innerHeight, false);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function setAccent(hex) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>accentColor.set(hex);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>[edgeMat, nodeMat, linkMat, crownMat, ringMat, ring2.material].forEach(function (m) { m.color.set(hex); });</p>
+<p class="p1"><span class="Apple-converted-space">      </span>accentLight.color.set(hex);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>accentLight2.color.set(hex);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>return { setAccent: setAccent };</p>
+<p class="p1"><span class="Apple-converted-space">  </span>})();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* =====================================================================</p>
+<p class="p1"><span class="Apple-converted-space">     </span>2) UI — Loader, nav, progress, reveals, counters, spotlight</p>
+<p class="p1"><span class="Apple-converted-space">     </span>===================================================================== */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>window.addEventListener('load', function () {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setTimeout(function () { var l = $('#loader'); if (l) l.classList.add('done'); heroIntro(); }, 900);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Safety: never let the loader block the page</p>
+<p class="p1"><span class="Apple-converted-space">  </span>setTimeout(function () { var l = $('#loader'); if (l &amp;&amp; !l.classList.contains('done')) { l.classList.add('done'); heroIntro(); } }, 4000);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>var heroPlayed = false;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function heroIntro() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (heroPlayed) return; heroPlayed = true;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (hasGSAP &amp;&amp; !reducedMotion) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gsap.fromTo('.hero-anim', { opacity: 0, y: 48 }, { opacity: 1, y: 0, duration: 1.3, ease: 'power4.out', stagger: 0.12 });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>runCounters();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function runCounters() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>$$('.counter').forEach(function (el) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var target = parseFloat(el.getAttribute('data-target')) || 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!hasGSAP || reducedMotion) { el.textContent = target.toFixed(dec); return; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var o = { v: 0 };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gsap.to(o, { v: target, duration: 2.2, ease: 'power3.out', delay: 0.5, onUpdate: function () { el.textContent = o.v.toFixed(dec); } });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>var nav = $('#site-nav');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var progressBar = $('#scroll-progress');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function onScrollUI() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (nav) nav.classList.toggle('scrolled', window.scrollY &gt; 40);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var max = document.documentElement.scrollHeight - window.innerHeight;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (progressBar) progressBar.style.transform = 'scaleX(' + (max &gt; 0 ? window.scrollY / max : 0) + ')';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>window.addEventListener('scroll', onScrollUI, { passive: true });</p>
+<p class="p1"><span class="Apple-converted-space">  </span>onScrollUI();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Manifesto word split</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var manifesto = $('.manifesto');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (manifesto) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var words = manifesto.textContent.trim().split(/\s+/);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>manifesto.textContent = '';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>words.forEach(function (w, idx) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var s = document.createElement('span');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>s.className = 'w';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>s.textContent = w;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>manifesto.appendChild(s);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (idx &lt; words.length - 1) manifesto.appendChild(document.createTextNode(' '));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (hasST &amp;&amp; !reducedMotion) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gsap.to($$('.w', manifesto), {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>opacity: 1, stagger: 0.04, ease: 'none',</p>
+<p class="p1"><span class="Apple-converted-space">        </span>scrollTrigger: { trigger: manifesto, start: 'top 78%', end: 'bottom 45%', scrub: true }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>$$('.w', manifesto).forEach(function (s) { s.style.opacity = 1; });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Reveals</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (hasST &amp;&amp; !reducedMotion) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>$$('.reveal').forEach(function (el) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gsap.to(el, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Spotlight</p>
+<p class="p1"><span class="Apple-converted-space">  </span>$$('.spot').forEach(function (card) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>card.addEventListener('pointermove', function (e) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var r = card.getBoundingClientRect();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>card.style.setProperty('--mx', (e.clientX - r.left) + 'px');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>card.style.setProperty('--my', (e.clientY - r.top) + 'px');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>var yearEl = document.getElementById('footer-year');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (yearEl) yearEl.textContent = String(new Date().getFullYear());</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* =====================================================================</p>
+<p class="p1"><span class="Apple-converted-space">     </span>3) ESTIMATOR — live budget + WhatsApp hand-off</p>
+<p class="p1"><span class="Apple-converted-space">     </span>===================================================================== */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var TIERS = {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>core:<span class="Apple-converted-space">    </span>{ label: 'Core &amp; Shell',<span class="Apple-converted-space">      </span>mult: 1.00, split: [16, 70, 14], baseMonths: 5, perSqm: 1 / 180 },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>turnkey: { label: 'Turnkey Signature', mult: 1.72, split: [14, 58, 28], baseMonths: 7, perSqm: 1 / 150 },</p>
+<p class="p1"><span class="Apple-converted-space">    </span>bespoke: { label: 'Bespoke Penthouse', mult: 2.85, split: [12, 52, 36], baseMonths: 9, perSqm: 1 / 120 }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var nf = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var areaInput = $('#calc-area');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var areaVal = $('#calc-area-value');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var totalEl = $('#calc-total');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var rangeEl = $('#calc-range');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var perSqmEl = $('#calc-per-sqm');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var timelineEl = $('#calc-timeline');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var calcBtn = $('#calc-whatsapp-btn');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var displayed = { v: 0 };</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var lastCalc = null;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function getRate() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var el = document.getElementById('calc-rate');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var n = el ? parseFloat(el.textContent.replace(/[^0-9.]/g, '')) : NaN;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return isFinite(n) &amp;&amp; n &gt; 0 ? n : 1850;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function money(v) { return state.currency + ' ' + nf.format(v); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function updateEstimate(instant) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!areaInput) return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var area = parseInt(areaInput.value, 10);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var tier = TIERS[state.tier];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var rate = getRate();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var total = Math.round(area * rate * tier.mult / 1000) * 1000;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var low = Math.round(total * 0.9 / 1000) * 1000;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var high = Math.round(total * 1.12 / 1000) * 1000;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var months = Math.round(tier.baseMonths + area * tier.perSqm);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>areaVal.textContent = nf.format(area);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var fill = ((area - 50) / (2000 - 50)) * 100;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>areaInput.style.setProperty('--fill', fill + '%');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>rangeEl.textContent = money(low) + ' — ' + money(high);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>perSqmEl.textContent = money(Math.round(rate * tier.mult));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>timelineEl.textContent = String(months);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>$$('.calc-currency').forEach(function (c) { c.textContent = state.currency; });</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>tier.split.forEach(function (pct, i) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var bar = document.getElementById('bar-' + (i + 1));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var val = document.getElementById('bar-' + (i + 1) + '-val');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (bar) bar.style.width = pct + '%';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (val) val.textContent = nf.format(Math.round(total * pct / 100));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (hasGSAP &amp;&amp; !instant &amp;&amp; !reducedMotion) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gsap.to(displayed, { v: total, duration: 0.7, ease: 'power3.out', overwrite: true, onUpdate: function () { totalEl.textContent = nf.format(Math.round(displayed.v)); } });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>displayed.v = total;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>totalEl.textContent = nf.format(total);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>$$('.chip').forEach(function (c) { c.classList.toggle('active', parseInt(c.getAttribute('data-area'), 10) === area); });</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>lastCalc = { area: area, tier: tier.label, total: total, low: low, high: high, months: months };</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updateCalcLink();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function calcMessage() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var c = lastCalc;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!c) return generalMessage();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return 'Hello ' + getBrand() + ', I just used your Project &amp; Space Cost Estimator.\n\n' +</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'• Area: ' + nf.format(c.area) + ' sqm\n' +</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'• Finish tier: ' + c.tier + '\n' +</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'• Estimated budget: ' + money(c.total) + ' (range ' + money(c.low) + ' – ' + money(c.high) + ')\n' +</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'• Estimated timeline: ' + c.months + ' months\n\n' +</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'I would like to discuss next steps and receive a tailored proposal.';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function updateCalcLink() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (calcBtn) calcBtn.setAttribute('href', waUrl(state.phone, calcMessage()));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function refreshWaLinks() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var general = waUrl(state.phone, generalMessage());</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var hero = document.getElementById('cta-whatsapp-btn');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (hero) hero.setAttribute('href', general);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>$$('.wa-link').forEach(function (a) { a.setAttribute('href', general); });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updateCalcLink();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (areaInput) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>areaInput.addEventListener('input', function () { updateEstimate(false); });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>$$('.chip').forEach(function (chip) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>chip.addEventListener('click', function () {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>areaInput.value = chip.getAttribute('data-area');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>updateEstimate(false);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var tierBtns = $$('.tier-option');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function selectTier(name) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>state.tier = name;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tierBtns.forEach(function (b) { b.setAttribute('aria-checked', b.getAttribute('data-tier') === name ? 'true' : 'false'); });</p>
+<p class="p1"><span class="Apple-converted-space">      </span>updateEstimate(false);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tierBtns.forEach(function (b, idx) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>b.addEventListener('click', function () { selectTier(b.getAttribute('data-tier')); });</p>
+<p class="p1"><span class="Apple-converted-space">      </span>b.addEventListener('keydown', function (e) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'ArrowUp' || e.key === 'ArrowLeft') {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>e.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var dir = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : -1;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var next = tierBtns[(idx + dir + tierBtns.length) % tierBtns.length];</p>
+<p class="p1"><span class="Apple-converted-space">          </span>next.focus(); selectTier(next.getAttribute('data-tier'));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Keep everything in sync if automation edits the DOM directly</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (window.MutationObserver) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var rateEl = document.getElementById('calc-rate');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (rateEl) new MutationObserver(function () { updateEstimate(true); }).observe(rateEl, { childList: true, characterData: true, subtree: true });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var logoEl = document.getElementById('brand-logo');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (logoEl) new MutationObserver(function () { refreshWaLinks(); }).observe(logoEl, { childList: true, characterData: true, subtree: true });</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* =====================================================================</p>
+<p class="p1"><span class="Apple-converted-space">     </span>4) CHAMELEON URL PARAMETER ENGINE</p>
+<p class="p1"><span class="Apple-converted-space">     </span>?brand= ?city= ?tagline= ?phone= ?accent=<span class="Apple-converted-space">  </span>(+ optional ?rate= ?currency=)</p>
+<p class="p1"><span class="Apple-converted-space">     </span>===================================================================== */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function setBrand(full) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var parts = String(full).split('|');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var name = parts[0].trim() || CONFIG.brand;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var descriptor = parts.length &gt; 1 ? parts.slice(1).join('|').trim() : CONFIG.descriptor;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var logo = document.getElementById('brand-logo');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (logo) logo.textContent = name;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var heroTitle = document.getElementById('hero-title');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (heroTitle) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var slot = heroTitle.querySelector('[data-brand-slot]');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (slot) slot.textContent = name; else heroTitle.textContent = name;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var footer = document.getElementById('footer-brand');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (footer) footer.textContent = name;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>$$('.brand-mirror').forEach(function (el) { el.textContent = name; });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.title = name + ' | ' + descriptor;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>refreshWaLinks();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function setCity(city) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var formatted = String(city).split(/[,|•·\/]+/).map(function (s) { return s.trim(); }).filter(Boolean).join(' • ').toUpperCase();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!formatted) return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var badge = document.getElementById('brand-city-badge');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (badge) badge.textContent = formatted;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>$$('.footer-city').forEach(function (el) { el.textContent = formatted; });</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function setTagline(text) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var sub = document.getElementById('hero-subtitle');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (sub &amp;&amp; String(text).trim()) sub.textContent = String(text).trim();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function setPhone(phone) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var digits = String(phone).replace(/\D/g, '');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (digits.length &lt; 6) return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>state.phone = digits;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>refreshWaLinks();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function setAccent(input) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var hex = String(input).trim().replace(/^#/, '');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (/^[0-9a-fA-F]{3}$/.test(hex)) hex = hex.split('').map(function (c) { return c + c; }).join('');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!/^[0-9a-fA-F]{6}$/.test(hex)) return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var r = parseInt(hex.slice(0, 2), 16), g = parseInt(hex.slice(2, 4), 16), b = parseInt(hex.slice(4, 6), 16);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var root = document.documentElement;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>root.style.setProperty('--accent', '#' + hex);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>root.style.setProperty('--accent-rgb', r + ',' + g + ',' + b);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (three) three.setAccent('#' + hex);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function setRate(rate) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var n = parseFloat(String(rate).replace(/[^0-9.]/g, ''));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!isFinite(n) || n &lt;= 0) return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var el = document.getElementById('calc-rate');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (el) el.textContent = nf.format(n);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updateEstimate(true);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function setCurrency(code) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var c = String(code).trim().toUpperCase().slice(0, 4);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (!c) return;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>state.currency = c;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>updateEstimate(true);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function applyChameleonParams() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var params = new URLSearchParams(window.location.search);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var brand = params.get('brand');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (brand &amp;&amp; brand.trim()) setBrand(brand.trim());</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var city = params.get('city');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (city &amp;&amp; city.trim()) setCity(city);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var tagline = params.get('tagline');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (tagline &amp;&amp; tagline.trim()) setTagline(tagline);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var phone = params.get('phone');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (phone &amp;&amp; phone.trim()) setPhone(phone);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var accent = params.get('accent');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (accent &amp;&amp; accent.trim()) setAccent(accent);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var rate = params.get('rate');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (rate &amp;&amp; rate.trim()) setRate(rate);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var currency = params.get('currency');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (currency &amp;&amp; currency.trim()) setCurrency(currency);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>updateEstimate(true);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>refreshWaLinks();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Public hooks for automation (Selenium / Playwright: window.CHAMELEON.setBrand('...'))</p>
+<p class="p1"><span class="Apple-converted-space">  </span>window.CHAMELEON = {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setBrand: setBrand, setCity: setCity, setTagline: setTagline, setPhone: setPhone,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setAccent: setAccent, setRate: setRate, setCurrency: setCurrency,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>apply: applyChameleonParams, defaults: CONFIG</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (document.readyState === 'loading') {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.addEventListener('DOMContentLoaded', applyChameleonParams);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>applyChameleonParams();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">})();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
