@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="gvS5-NyCMnAS5OkAiHrTHTS2xRAIxcZDEUcyq8OG_dg" />
+    <title>RTX 5090 vs AMD RX 9070 XT Deep Learning & Gaming Cost Analysis</title>
+    <meta name="description" content="The RX 9070 XT offers stellar rasterization and gaming value for its price, but lacks CUDA support required for optimal machine learning acceleration. For professional AI pipelines, the RTX 5090's ecosystem and 32GB VRAM dominate.">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen p-6 md:p-12">
+    <div class="max-w-4xl mx-auto">
+        <a href="index.html" class="text-xs uppercase tracking-widest text-emerald-400 hover:underline">&larr; All Hardware &amp; Cloud Break-Even Tools</a>
+        <div class="mt-4 flex flex-wrap gap-2">
+            <span class="text-xs font-mono px-2.5 py-1 bg-zinc-900 border border-zinc-800 rounded text-emerald-400">Target VRAM: 32 GB</span>
+            <span class="text-xs font-mono px-2.5 py-1 bg-zinc-900 border border-zinc-800 rounded text-zinc-300">Local Hardware Est: $699.0</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold mt-3 mb-3">RTX 5090 vs AMD RX 9070 XT Deep Learning & Gaming Cost Analysis</h1>
+        <p class="text-zinc-400 mb-8 leading-relaxed">The RX 9070 XT offers stellar rasterization and gaming value for its price, but lacks CUDA support required for optimal machine learning acceleration. For professional AI pipelines, the RTX 5090's ecosystem and 32GB VRAM dominate.</p>
+
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-zinc-300 mb-2">
+                        Usage Hours Per Month: <span id="hrsVal" class="text-emerald-400 font-bold">120</span> hrs/mo
+                    </label>
+                    <input id="hrsSlider" type="range" min="10" max="720" value="120" class="w-full accent-emerald-500 cursor-pointer">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-zinc-300 mb-2">
+                        Time Horizon (Months): <span id="moVal" class="text-emerald-400 font-bold">6</span> months
+                    </label>
+                    <input id="moSlider" type="range" min="1" max="36" value="6" class="w-full accent-emerald-500 cursor-pointer">
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-5 bg-zinc-950 rounded-lg border border-zinc-800">
+                    <div class="text-xs text-zinc-500 uppercase tracking-wider">Buy Local: AMD Radeon RX 9070 XT 16GB</div>
+                    <div id="costA" class="text-3xl font-bold text-white mt-2">$0.00</div>
+                    <div class="text-xs text-zinc-500 mt-1">Includes $699.0 hardware + $0.06/hr power</div>
+                </div>
+                <div class="p-5 bg-zinc-950 rounded-lg border border-emerald-900/60">
+                    <div class="text-xs text-emerald-400 uppercase tracking-wider">Rent Cloud: NVIDIA GeForce RTX 5090 32GB</div>
+                    <div id="costB" class="text-3xl font-bold text-emerald-400 mt-2">$0.00</div>
+                    <div class="text-xs text-zinc-500 mt-1">$0 upfront &bull; 2.2x speed ($0.12/hr)</div>
+                </div>
+                <div class="p-5 bg-zinc-950 rounded-lg border border-zinc-800 flex flex-col justify-center">
+                    <div class="text-xs text-zinc-500 uppercase tracking-wider">Winner for Your Workload</div>
+                    <div id="winnerText" class="text-xl font-bold text-amber-400 mt-2">Calculating...</div>
+                    <div id="savingsText" class="text-xs text-zinc-400 mt-1"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-6 bg-zinc-900/80 border border-zinc-800 rounded-xl flex flex-col justify-between gap-4">
+                <div>
+                    <span class="text-xs uppercase font-bold tracking-wider text-emerald-400">Option 1: Own The Hardware</span>
+                    <h3 class="font-bold text-lg text-white mt-1">Buy AMD Radeon RX 9070 XT 16GB</h3>
+                    <p class="text-sm text-zinc-400 mt-1">Best if you run heavy workloads every day and want full local privacy + resale value.</p>
+                </div>
+                <a href="https://www.amazon.com/s?k=AMD+Radeon+RX+9070+XT+16GB&tag=milesrma-20" target="_blank" rel="nofollow sponsored"
+                   class="text-center bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold px-5 py-3 rounded-lg transition">
+                   Check Amazon Price &amp; Stock &rarr;
+                </a>
+            </div>
+
+            <div class="p-6 bg-zinc-900/80 border border-zinc-800 rounded-xl flex flex-col justify-between gap-4">
+                <div>
+                    <span class="text-xs uppercase font-bold tracking-wider text-amber-400">Option 2: Zero Upfront Cost</span>
+                    <h3 class="font-bold text-lg text-white mt-1">Rent NVIDIA GeForce RTX 5090 32GB Instantly</h3>
+                    <p class="text-sm text-zinc-400 mt-1">Skip the $699.0 upfront hardware bill. Spin up 32GB+ VRAM in 30 seconds and pay by the minute.</p>
+                </div>
+                <a href="https://runpod.io?ref=b0ct1u79" target="_blank" rel="nofollow sponsored"
+                   class="text-center bg-zinc-100 hover:bg-white text-zinc-950 font-bold px-5 py-3 rounded-lg transition">
+                   Deploy on RunPod Now &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const hrsSlider = document.getElementById('hrsSlider'), moSlider = document.getElementById('moSlider');
+        const hrsVal = document.getElementById('hrsVal'), moVal = document.getElementById('moVal');
+        const costA = document.getElementById('costA'), costB = document.getElementById('costB');
+        const winnerText = document.getElementById('winnerText'), savingsText = document.getElementById('savingsText');
+        const upfront = 699.0, rateA = 0.06, rateB = 0.12, mult = 2.2;
+
+        function calc() {
+            let h = parseFloat(hrsSlider.value), m = parseFloat(moSlider.value);
+            hrsVal.innerText = h; moVal.innerText = m;
+            let totalLocal = upfront + (h * m * rateA);
+            let totalCloud = (h / mult) * m * rateB;
+            costA.innerText = '$' + totalLocal.toFixed(0);
+            costB.innerText = '$' + totalCloud.toFixed(0);
+            if (totalCloud < totalLocal) {
+                winnerText.innerText = 'Rent on Cloud (RunPod)';
+                winnerText.className = 'text-xl font-bold text-emerald-400 mt-2';
+                savingsText.innerText = 'Saves you $' + (totalLocal - totalCloud).toFixed(0) + ' over ' + m + ' mo';
+            } else {
+                winnerText.innerText = 'Buy Local Hardware';
+                winnerText.className = 'text-xl font-bold text-amber-400 mt-2';
+                savingsText.innerText = 'Saves you $' + (totalCloud - totalLocal).toFixed(0) + ' over ' + m + ' mo';
+            }
+        }
+        hrsSlider.addEventListener('input', calc);
+        moSlider.addEventListener('input', calc);
+        calc();
+    </script>
+</body>
+</html>
