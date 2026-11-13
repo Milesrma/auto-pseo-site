@@ -4,81 +4,81 @@ These tools were built directly from **live questions people asked today**. Clic
 
 ### 🔥 Question: "how much vram for kimi k3"
 - **Where they asked:** https://www.google.com/search?q=how%20much%20vram%20for%20kimi%20k3
-- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/kimi-k3-vram-allocation-dual-rtx-4090-vs-cloud-h100.html
+- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/kimi-k3-vram-requirements-dual-rtx-4090-vs-cloud-h100-calculator.html
 - **Copy-Paste Reply:**
-> Running Kimi K3 comfortably requires at least 48GB VRAM for 4-bit quantizations, requiring either dual 24GB cards locally or an 80GB cloud instance. A dual 4090 workstation breaks even against an H100 cloud rental at ~1,660 operational hours—use our calculator to test your weekly hours. https://milesrma.github.io/auto-pseo-site/kimi-k3-vram-allocation-dual-rtx-4090-vs-cloud-h100.html
+> Running Kimi K3 comfortably with 4-bit quantization and full context requires roughly 42GB-48GB of VRAM, making a dual RTX 4090 setup or an 80GB H100 cloud instance essential. A local $4,200 dual rig takes about 1,800 running hours to break even against RunPod's $2.49/hr H100 rate; test your exact utilization on this interactive cost calculator: https://gpu-break-even-calc.com/kimi-k3-vram-requirements-dual-rtx-4090-vs-cloud-h100-calculator https://milesrma.github.io/auto-pseo-site/kimi-k3-vram-requirements-dual-rtx-4090-vs-cloud-h100-calculator.html
 
 ---
 
 ### 🔥 Question: "how much vram for qwen 3.8 27b"
 - **Where they asked:** https://www.google.com/search?q=how%20much%20vram%20for%20qwen%203.8%2027b
-- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/qwen-3-8-27b-vram-budget-rtx-4080-super-vs-runpod-a100.html
+- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/qwen-3-8-27b-vram-allocation-dual-rtx-3090-vs-runpod-a100.html
 - **Copy-Paste Reply:**
-> A 27B model needs roughly 18-20GB for 4-bit or 54GB for full 16-bit weights, meaning a 16GB card will require severe quantization or CPU offload. For unquantized inference, renting an A100 at $1.29/hr is vastly better than building a multi-GPU desktop unless you log over 1,200 hours. https://milesrma.github.io/auto-pseo-site/qwen-3-8-27b-vram-budget-rtx-4080-super-vs-runpod-a100.html
+> Qwen 27B needs around 18GB VRAM at 4-bit, 28GB at 8-bit, and 56GB at full FP16 with 8k context window. A dual RTX 3090 rig runs it locally for $1,950 total upfront and breaks even against a $1.64/hr cloud A100 after 1,300 hours of runtime—check the exact break-even math here: https://gpu-break-even-calc.com/qwen-3-8-27b-vram-allocation-dual-rtx-3090-vs-runpod-a100 https://milesrma.github.io/auto-pseo-site/qwen-3-8-27b-vram-allocation-dual-rtx-3090-vs-runpod-a100.html
 
 ---
 
-### 🔥 Question: "cheapest gpu to run gta 6"
-- **Where they asked:** https://www.google.com/search?q=cheapest%20gpu%20to%20run%20gta%206
-- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/cheapest-gpu-to-run-gta-6-rtx-4060-ti-16gb-vs-geforce-now.html
+### 🔥 Question: "rtx 4090 vs 5080"
+- **Where they asked:** https://www.google.com/search?q=rtx%204090%20vs%205080
+- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/rtx-4090-vs-rtx-5080-ai-cost-roi-calculator.html
 - **Copy-Paste Reply:**
-> To comfortably clear GTA 6's anticipated high-res asset load, 16GB VRAM is the safe baseline to avoid stutters. At $950 for a 4060 Ti 16GB build versus $20/mo for cloud streaming, cloud wins financially unless you play over 60 hours a month for 4 years straight. https://milesrma.github.io/auto-pseo-site/cheapest-gpu-to-run-gta-6-rtx-4060-ti-16gb-vs-geforce-now.html
+> For AI workloads, the 24GB buffer on the RTX 4090 still beats the 16GB limit of the RTX 5080 despite architectural gains. If you run models over 14B regularly, buying a 4090 breaks even against renting a 48GB L40S on RunPod ($0.85/hr) in about 2,700 operating hours; calculate your break-even point here: https://gpu-break-even-calc.com/rtx-4090-vs-rtx-5080-ai-cost-roi-calculator https://milesrma.github.io/auto-pseo-site/rtx-4090-vs-rtx-5080-ai-cost-roi-calculator.html
 
 ---
 
-### 🔥 Question: "cpu calculator for gpu"
-- **Where they asked:** https://www.google.com/search?q=cpu%20calculator%20for%20gpu
-- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/cpu-calculator-for-rtx-5090-bottleneck-local-vs-runpod.html
+### 🔥 Question: "rtx 5090 vs 4090"
+- **Where they asked:** https://www.google.com/search?q=rtx%205090%20vs%204090
+- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/rtx-5090-vs-4090-ai-training-break-even-calculator.html
 - **Copy-Paste Reply:**
-> Pairing a flagship GPU with an older CPU causes brutal PCIe bandwidth starvation in LLM token feeding and dataloading. A balanced Ryzen 9 9950X + 5090 rig runs ~$3,600, taking roughly 3,500 hours to beat cloud instance rental pricing on RunPod. https://milesrma.github.io/auto-pseo-site/cpu-calculator-for-rtx-5090-bottleneck-local-vs-runpod.html
+> The 32GB VRAM on the RTX 5090 fixes the 24GB bottleneck of the 4090 for 32B quant models and large LoRA ranks without multi-GPU overhead. At $2,499 upfront, it breaks even against an hourly A100 cloud instance ($1.64/hr) after roughly 1,640 hours of heavy compute—see the comparison tool: https://gpu-break-even-calc.com/rtx-5090-vs-4090-ai-training-break-even-calculator https://milesrma.github.io/auto-pseo-site/rtx-5090-vs-4090-ai-training-break-even-calculator.html
 
 ---
 
-### 🔥 Question: "psu calculator for gpu"
-- **Where they asked:** https://www.google.com/search?q=psu%20calculator%20for%20gpu
-- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/psu-calculator-for-rtx-5080-system-vs-cloud-compute.html
+### 🔥 Question: "rtx 5090 vs rx 9070 xt"
+- **Where they asked:** https://www.google.com/search?q=rtx%205090%20vs%20rx%209070%20xt
+- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/rtx-5090-vs-rx-9070-xt-ai-workstation-cost-calculator.html
 - **Copy-Paste Reply:**
-> An RTX 5080 build requires at least an 850W-1000W ATX 3.0 PSU to tolerate transient power spikes without system shutdowns. The complete hardware package costs roughly $1,850, breaking even with cloud rental at 2,800 running hours. https://milesrma.github.io/auto-pseo-site/psu-calculator-for-rtx-5080-system-vs-cloud-compute.html
-
----
-
-### 🔥 Question: "mining calculator for gpu"
-- **Where they asked:** https://www.google.com/search?q=mining%20calculator%20for%20gpu
-- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/mining-calculator-gpu-ai-worker-rtx-3090-vs-runpod-host.html
-- **Copy-Paste Reply:**
-> Crypto mining on consumer GPUs is practically dead, generating barely pennies after power costs. However, hosting an RTX 3090 24GB on RunPod or Vast nets around $0.28/hr clear profit, recouping a $900 used setup in roughly 4-5 months of 24/7 uptime. https://milesrma.github.io/auto-pseo-site/mining-calculator-gpu-ai-worker-rtx-3090-vs-runpod-host.html
+> Unless your entire stack is purely PyTorch on Ubuntu, the ROCm friction on AMD cards like the RX 9070 XT costs significant engineering time compared to native CUDA on the 5090. If you don't want to invest $2,500 locally, cloud L40S or A100 instances on RunPod start under $1/hr; check the break-even calculator: https://gpu-break-even-calc.com/rtx-5090-vs-rx-9070-xt-ai-workstation-cost-calculator https://milesrma.github.io/auto-pseo-site/rtx-5090-vs-rx-9070-xt-ai-workstation-cost-calculator.html
 
 ---
 
 ### 🔥 Question: "cheapest gpu to run local llm"
 - **Where they asked:** https://www.google.com/search?q=cheapest%20gpu%20to%20run%20local%20llm
-- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/cheapest-gpu-local-llm-intel-arc-a770-16gb-vs-runpod.html
+- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/cheapest-gpu-to-run-local-llm-rtx-3060-12gb-vs-cloud-calculator.html
 - **Copy-Paste Reply:**
-> If you want 16GB VRAM brand new on a shoestring budget, the Arc A770 16GB costs just ~$300, breaking even with cloud rentals in roughly 1,000 hours. Keep in mind that PyTorch/vLLM support on Intel requires SYCL/IPEX configurations, unlike seamless cloud CUDA pods. https://milesrma.github.io/auto-pseo-site/cheapest-gpu-local-llm-intel-arc-a770-16gb-vs-runpod.html
+> The RTX 3060 12GB remains the undisputed budget king for local LLMs, letting you run Llama-3 8B or Mistral 7B fully offloaded for under $300. It breaks even against a 24GB cloud L4 ($0.38/hr) in 854 runtime hours; compare token speeds and electricity costs on this tool: https://gpu-break-even-calc.com/cheapest-gpu-to-run-local-llm-rtx-3060-12gb-vs-cloud-calculator https://milesrma.github.io/auto-pseo-site/cheapest-gpu-to-run-local-llm-rtx-3060-12gb-vs-cloud-calculator.html
 
 ---
 
-### 🔥 Question: "cloud gpu cost per hour"
-- **Where they asked:** https://www.google.com/search?q=cloud%20gpu%20cost%20per%20hour
-- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/cloud-gpu-cost-per-hour-mac-studio-m2-ultra-vs-runpod.html
+### 🔥 Question: "cheapest gpu to run gta 6"
+- **Where they asked:** https://www.google.com/search?q=cheapest%20gpu%20to%20run%20gta%206
+- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/cheapest-gpu-to-run-gta-6-pc-rtx-4070-vs-cloud-gaming-calculator.html
 - **Copy-Paste Reply:**
-> Mac Studio's unified memory is amazing for large model weights without PCIe bottlenecks, drawing under $0.03/hr in electricity. However, at $3,199 upfront, you need over 2,200 hours of active local development to beat $1.48/hr dual-4090 cloud rentals. https://milesrma.github.io/auto-pseo-site/cloud-gpu-cost-per-hour-mac-studio-m2-ultra-vs-runpod.html
+> Targeting 12GB VRAM like on an RTX 4070 is the safe baseline for GTA 6 PC settings at 1440p without texture degradation. At $549 upfront, it breaks even against a high-end cloud gaming rig ($0.50/hr equivalent) in roughly 1,200 gaming hours; run your custom budget numbers here: https://gpu-break-even-calc.com/cheapest-gpu-to-run-gta-6-pc-rtx-4070-vs-cloud-gaming-calculator https://milesrma.github.io/auto-pseo-site/cheapest-gpu-to-run-gta-6-pc-rtx-4070-vs-cloud-gaming-calculator.html
 
 ---
 
 ### 🔥 Question: "cloud gpu price in india"
 - **Where they asked:** https://www.google.com/search?q=cloud%20gpu%20price%20in%20india
-- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/cloud-gpu-pricing-india-rtx-4090-local-build-vs-runpod.html
+- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/cloud-gpu-pricing-india-import-duty-vs-runpod-calculator.html
 - **Copy-Paste Reply:**
-> Due to 18% GST and import tariffs in India, an RTX 4090 workstation sets you back around ₹2.2L ($2,650). That inflates the break-even against RunPod's $0.79/hr instances to nearly 3,800 hours—renting cloud GPUs is way more capital-efficient for Indian AI teams. https://milesrma.github.io/auto-pseo-site/cloud-gpu-pricing-india-rtx-4090-local-build-vs-runpod.html
+> Because 18% GST and import duties elevate local RTX 4090 builds past ₹2.3 Lakhs (~$2,800), renting a cloud 4090 on RunPod at $0.74/hr (~₹62/hr) takes nearly 4,500 hours to justify buying hardware. Factor in local power stability and UPS requirements using this break-even tool: https://gpu-break-even-calc.com/cloud-gpu-pricing-india-import-duty-vs-runpod-calculator https://milesrma.github.io/auto-pseo-site/cloud-gpu-pricing-india-import-duty-vs-runpod-calculator.html
 
 ---
 
-### 🔥 Question: "how much vram for 1440p"
-- **Where they asked:** https://www.google.com/search?q=how%20much%20vram%20for%201440p
-- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/how-much-vram-for-1440p-gaming-rtx-4070-vs-cloud-rig.html
+### 🔥 Question: "psu calculator for gpu"
+- **Where they asked:** https://www.google.com/search?q=psu%20calculator%20for%20gpu
+- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/psu-calculator-for-rtx-5090-workstation-vs-cloud-compute.html
 - **Copy-Paste Reply:**
-> For native 1440p ultra settings, 12GB VRAM is currently the safe threshold to avoid 1% low framerate drops in games like Cyberpunk and TLOU. A dedicated $1,150 RTX 4070 rig pays for itself over a $50/mo Shadow Cloud tier after about 2,500 hours of gaming. https://milesrma.github.io/auto-pseo-site/how-much-vram-for-1440p-gaming-rtx-4070-vs-cloud-rig.html
+> Running an RTX 5090 system safely requires at least a 1000W-1200W ATX 3.1 native 12V-2x6 power supply to survive 800W+ transient spikes. Upgrading your PSU and home wiring pushes your local investment close to $2,850, breaking even with cloud compute after ~1,600 hours; calculate your exact PSU wattage and cost: https://gpu-break-even-calc.com/psu-calculator-for-rtx-5090-workstation-vs-cloud-compute https://milesrma.github.io/auto-pseo-site/psu-calculator-for-rtx-5090-workstation-vs-cloud-compute.html
+
+---
+
+### 🔥 Question: "cpu calculator for gpu"
+- **Where they asked:** https://www.google.com/search?q=cpu%20calculator%20for%20gpu
+- **Your Custom Tool Link:** https://milesrma.github.io/auto-pseo-site/cpu-calculator-for-gpu-bottleneck-ai-workstation-vs-cloud.html
+- **Copy-Paste Reply:**
+> To avoid PCIe bottlenecking on multi-GPU setups for fast DataLoader and host-to-device transfers, consumer CPUs lack sufficient PCIe lanes, forcing a $6,500+ Threadripper build. That hardware takes roughly 1,365 hours to break even against dual cloud H100 instances; calculate your host-CPU bottlenecks and cloud ROI here: https://gpu-break-even-calc.com/cpu-calculator-for-gpu-bottleneck-ai-workstation-vs-cloud https://milesrma.github.io/auto-pseo-site/cpu-calculator-for-gpu-bottleneck-ai-workstation-vs-cloud.html
 
 ---
 
