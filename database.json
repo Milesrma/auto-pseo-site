@@ -3346,5 +3346,37 @@
     "verdict": "The RTX 5090's expanded 32GB VRAM footprint makes it far superior to the 5080 for loading unquantized models locally. Local hardware investment achieves full financial break-even against cloud GPU rentals in under 1,400 active hours.",
     "affiliate_query": "NVIDIA GeForce RTX 5090 32GB",
     "reddit_reply": "If you're choosing between the RTX 5090 and 5080 for serious machine learning, the extra VRAM on the 5090 is essential. This free hardware calculator breaks down the exact electricity vs. cloud rental math for your specific use case."
+  },
+  {
+    "slug": "cpu-calculator-for-gpu-bottleneck-local-workstation-vs-cloud-compute",
+    "title": "CPU Calculator for GPU Bottleneck: Local Workstation vs Cloud Compute",
+    "source_url": "https://www.google.com/search?q=cpu%20calculator%20for%20gpu",
+    "source_question": "cpu calculator for gpu",
+    "item_a": "Intel Core i9-14900K & RTX 4090 Workstation",
+    "item_b": "RunPod NVIDIA A100 80GB Cloud Instance",
+    "hw_upfront_cost": 3200.0,
+    "cost_a_per_hr": 0.15,
+    "cost_b_per_hr": 1.89,
+    "speed_multiplier": 1.2,
+    "vram_gb_needed": 24,
+    "verdict": "Building a custom CPU-GPU balanced workstation costs $3,200 upfront with a $0.15/hr power draw, breaking even against a $1.89/hr cloud instance in roughly 1,940 hours of heavy rendering. If your utilization exceeds 15 hours a week, buying local hardware yields a superior long-term ROI.",
+    "affiliate_query": "Intel Core i9 14900K and RTX 4090 desktop workstation",
+    "reddit_reply": "To check if your CPU will bottleneck your GPU without wasting money on overkill parts, use a bottleneck calculator, but keep in mind that custom workstations break even against cloud rentals like RunPod after about 1,940 hours of heavy compute. You can test your exact hardware pairing breakdown using our free break-even calculator tool."
+  },
+  {
+    "slug": "mining-calculator-for-gpu-profitability-vs-cloud-rental",
+    "title": "Mining Calculator for GPU Profitability vs Cloud Rental",
+    "source_url": "https://www.google.com/search?q=mining%20calculator%20for%20gpu",
+    "source_question": "mining calculator for gpu",
+    "item_a": "NVIDIA GeForce RTX 4090 24GB",
+    "item_b": "RunPod RTX 4090 Cloud Worker",
+    "hw_upfront_cost": 1799.0,
+    "cost_a_per_hr": 0.08,
+    "cost_b_per_hr": 0.74,
+    "speed_multiplier": 1.0,
+    "vram_gb_needed": 24,
+    "verdict": "An RTX 4090 purchased for $1,799 incurs an hourly power cost of $0.08, making it vastly cheaper than renting cloud GPU instances at $0.74/hr once you cross 2,725 operating hours. Pivoting underutilized gaming or mining hardware toward AI workloads accelerates your hardware payback period.",
+    "affiliate_query": "NVIDIA GeForce RTX 4090 24GB GDDR6X",
+    "reddit_reply": "Traditional crypto mining profitability is minimal these days, but repurposing that same GPU for AI inference or renting it out on cloud compute platforms completely changes the math. You can calculate your exact break-even point and hourly margins using our free local hardware vs cloud calculator."
   }
 ]
