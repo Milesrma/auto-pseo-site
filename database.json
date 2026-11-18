@@ -3378,5 +3378,21 @@
     "verdict": "An RTX 4090 purchased for $1,799 incurs an hourly power cost of $0.08, making it vastly cheaper than renting cloud GPU instances at $0.74/hr once you cross 2,725 operating hours. Pivoting underutilized gaming or mining hardware toward AI workloads accelerates your hardware payback period.",
     "affiliate_query": "NVIDIA GeForce RTX 4090 24GB GDDR6X",
     "reddit_reply": "Traditional crypto mining profitability is minimal these days, but repurposing that same GPU for AI inference or renting it out on cloud compute platforms completely changes the math. You can calculate your exact break-even point and hourly margins using our free local hardware vs cloud calculator."
+  },
+  {
+    "slug": "psu-calculator-for-gpu-workstation-vs-cloud-rental",
+    "title": "PSU Power Supply Calculator for GPU Workstations vs Cloud Rental",
+    "source_url": "https://www.google.com/search?q=psu%20calculator%20for%20gpu",
+    "source_question": "psu calculator for gpu",
+    "item_a": "1200W Platinum Power Supply Unit",
+    "item_b": "Cloud Managed Infrastructure",
+    "hw_upfront_cost": 220.0,
+    "cost_a_per_hr": 0.08,
+    "cost_b_per_hr": 0.0,
+    "speed_multiplier": 1.0,
+    "vram_gb_needed": 24,
+    "verdict": "High-draw GPUs like the RTX 4090 or 5090 require a robust 1000W+ PSU with transient power headroom to prevent system crashes. Calculate your exact power draw and electricity overhead using our tool.",
+    "affiliate_query": "1200 Watt 80 Plus Platinum Power Supply",
+    "reddit_reply": "Don't skimp on your PSU when running flagship GPUs; transient spikes can easily trip standard power supplies. Our free calculator models total system wattage and power costs to help you plan your build."
   }
 ]
